@@ -13,7 +13,9 @@ authors:
     given-names: Federico
     orcid: "https://orcid.org/0000-0002-6978-3619"
     affiliation: 'CISAS "G. Colombo", University of Padova'
-version: 1.0.0
+version: 1.0.1
+date-released: '2026-06-16'
+doi: 10.5281/zenodo.20715157
 license: MIT
 repository-code: "https://github.com/federicotoson-uni/suslifepath-paper1"
 keywords:

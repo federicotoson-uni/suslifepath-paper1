@@ -163,7 +163,7 @@ def fig5_weight_sensitivity(data):
             ax.plot([x[i] - 0.07, x[i] + 0.07], [v, v], color=C_S, lw=1.0)
         # relative spread annotation
         rel = 0.5 * (p75 - p25) / med * 100
-        ax.text(x[i] + 0.26, med, f"±{rel:.0f}%", fontsize=8, va="center", color=C_REF)
+        ax.text(x[i], p95 * 1.4, f"±{rel:.0f}%", fontsize=8, ha="center", va="bottom", color=C_S)
 
     ax.axhline(1.0, color=C_REF, ls="--", lw=1.0, zorder=0)
     ax.set_yscale("log")

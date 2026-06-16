@@ -75,4 +75,4 @@ manuscript's Table values (terrestrial pulled live from OpenLCA, `source: ef31`)
 - `recompute_orbital_norm.py` / `recompute_terrestrial.py` are one-time migration
   scripts, **superseded** — the per-sub-category orbital normalisation is now native in
   `ssci.normalise_orbital` + `ssci_orchestrator.py`.
-- Licence: MIT. Zenodo DOI: *to be added at release*.
+- Licence: MIT. Zenodo concept DOI (all versions): https://doi.org/10.5281/zenodo.20715157
