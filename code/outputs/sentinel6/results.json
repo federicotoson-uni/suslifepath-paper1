@@ -1,0 +1,100 @@
+{
+  "mission_id": "sentinel6",
+  "reference_id": "smallsat_700km_sso",
+  "raw_scores": {
+    "terrestrial": {
+      "raw_score": 7.599751094834098,
+      "by_impact_category": {
+        "Ecotoxicity freshwater (organics)": 366.7756318853506,
+        "Ecotoxicity freshwater (inorganics)": 83.90580412500022,
+        "Ionising radiation (human health)": 45775.12500000012,
+        "Ozone depletion": 0.0,
+        "Eutrophication marine": 54.59183489500015,
+        "Eutrophication terrestrial": 605.6229109875017,
+        "Acidification": 312.83295912500097,
+        "Photochemical ozone formation (human health)": 193.3172029582505,
+        "Particulate matter": 0.006357366483457518,
+        "Eutrophication freshwater": 0.0,
+        "Land use": 7541.608453950019,
+        "Water use": 150779.26067500032,
+        "Resource use minerals and metals": 0.7516316890421023,
+        "Resource use fossils": 0.0,
+        "Human toxicity cancer (organics)": 0.0,
+        "Human toxicity non-cancer (inorganics)": 8.278223287500022e-09,
+        "Human toxicity non-cancer (organics)": 6.671495419913765e-06,
+        "Climate change (fossil)": 118403.48785825032,
+        "Human toxicity non-cancer": 6.6797736432012645e-06,
+        "Climate change (biogenic)": 0.0,
+        "Climate change": 118403.48785825032,
+        "Human toxicity cancer": 0.0,
+        "Climate change (land use)": 0.0,
+        "Ecotoxicity freshwater": 450.6814360103508,
+        "Human toxicity cancer (inorganics)": 0.0
+      },
+      "by_lifecycle_tier": {
+        "manufacturing+AIT": 7.599751094834098
+      },
+      "source": "ef31"
+    },
+    "atmospheric": {
+      "raw_score": 4822.017,
+      "by_species": {
+        "NOx": 44.805,
+        "Al2O3": 886.848,
+        "BC": 477.864,
+        "H2O": 3412.5,
+        "HCl": 0.0
+      },
+      "by_phase": {
+        "launch": 3900.75,
+        "reentry": 921.267
+      }
+    },
+    "orbital": {
+      "raw_score": 294.22043606592,
+      "DGP": 0.04655929,
+      "CC": 3.677592e-05,
+      "MC": 294.17384,
+      "breakdown_pct": {
+        "DGP": 1.0030465086113625,
+        "CC": 0.3202441502774426,
+        "MC": 98.6767093411112
+      },
+      "normalised_subscores": {
+        "DGP": 0.04655929,
+        "CC": 0.014865053749315377,
+        "MC": 4.5803634098871155
+      }
+    }
+  },
+  "reference_raw_scores": {
+    "terrestrial": 1.9797332816077169,
+    "atmospheric": 1985.9875,
+    "orbital": 65.22747398499999
+  },
+  "reference_subscores_orbital": {
+    "DGP": 1.0,
+    "CC": 0.002473985,
+    "MC": 64.225
+  },
+  "ssci": {
+    "scores_norm": {
+      "terrestrial": 3.8387752357541993,
+      "atmospheric": 2.4280198138205806,
+      "orbital": 1.5472625845454768
+    },
+    "SSCI_linear_equal": 2.6046858780400854,
+    "SSCI_linear_expert": 2.472443639057699,
+    "SSCI_risk": 2.4340882031202358
+  },
+  "sensitivity_dirichlet_10k": {
+    "mean": 2.6140168070313576,
+    "median": 2.5832114502456265,
+    "p05": 1.8734363811414951,
+    "p25": 2.26361025159308,
+    "p75": 2.9542494879856345,
+    "p95": 3.43590828545895,
+    "min": 1.5514811726377666,
+    "max": 3.8205860203918434
+  }
+}

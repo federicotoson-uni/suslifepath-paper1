@@ -1,0 +1,72 @@
+id: redpill_2p
+description: >
+  RedPill 2P PocketCube, J2050 mission, University of Padova. Pilot case
+  study for Paper 1 (SusLifePath SSCI). Architecture CONFIRMED by
+  Porcarelli et al. 2026 (SSEA Munich) and Vignato et al. 2025
+  (IAC-25,E2,4,11): 2P PocketQube 50x50x100 mm, SSO, dedicated PocketQube
+  deployer, no propulsion, fully student-built (no COTS spacecraft
+  components), machined aluminium structure, body-mounted solar cells,
+  UHF LoRa TT&C (436 MHz dipole, PET winding + X10CrNi188 spring-steel
+  elements), semi-passive TCS, payloads CRYSTALS/CLEAR/CLOUD.
+  Per-subsystem masses still PLACEHOLDER — pending mass budget from
+  Porcarelli et al. CEAS 2025 (Mission Analysis; Architecture and
+  Engineering) or team BOM.
+
+orbit:
+  altitude_km: 550                # SSO confirmed (SSEA 2026); exact altitude TBD by FYS!4 launch — PLACEHOLDER
+  inclination_deg: 97.6           # SSO at 550 km
+  eccentricity: 0.001
+  operational_lifetime_yr: 2      # 1-3 yr typical PocketCube
+  residual_lifetime_yr: 8         # passive decay at 550 km, IADC-25yr OK
+
+mass_budget:
+  dry_mass_kg: 0.435              # REAL — team mass budget (L. Dallago, 12/06/2026), 10% margins
+                                  # included on all entries except miscellaneous; file total 434.82 g
+  propellant_mass_kg: 0.0         # no on-board propulsion — CONFIRMED (SSEA 2026)
+  total_wet_mass_kg: 0.435
+
+geometry:
+  exposed_surface_m2: 0.006       # max face 5x10 cm + margin; solar body-mounted CONFIRMED
+                                  # (SSEA 2026, no deployables except 330 mm wire dipole)
+  total_surface_m2: 0.025
+  cross_section_m2: 0.0050        # ~50 cm^2 perigee cross-section
+
+cost:
+  build_cost_usd: 1.0e5           # ~100 kUSD university-grade build; PocketQube launch ~25 kEUR
+                                  # (Alba Orbital, cited in Vignato et al. IAC-25)
+  programme_cost_usd: 3.0e5
+  reference_cost_class: pocketcube
+
+materials:                        # REAL masses from team mass budget (L. Dallago, 12/06/2026),
+                                  # 24 line items aggregated into MC material classes; margins included.
+                                  # CRYSTALS composition from team (12/06): double ITO glass + PEEK frame
+                                  # + 2 sandwich PCBs; internal 5.0/2.0/2.9 g split estimated.
+                                  # Total 0.4348 kg = dry mass (exact).
+  - { id: aluminium_6061,      mass_kg: 0.1208, criticality_factor: 0.15 } # frames Z+/Z- 46.4 g + battery case 74.3 g
+  - { id: brass_spacers,       mass_kg: 0.0246, criticality_factor: 0.20 } # 14 standoffs x 1.76 g, brass (confirmed by team 12/06)
+  - { id: PCB_FR4,             mass_kg: 0.1286, criticality_factor: 0.30 } # PCB stack 49.8 g + lateral boards X/Y 75.9 g + CRYSTALS sandwich boards ~2.9 g
+  - { id: glass_ITO,           mass_kg: 0.0050, criticality_factor: 0.10 } # CRYSTALS double ITO-coated glass (team 12/06); chi = bulk glass — the
+                                  # nm-scale ITO coating carries negligible mass but contains indium
+                                  # (EU CRM): flagged as mass-weighting limitation for Sec 3.2.3/5
+  - { id: polymer_PEEK,        mass_kg: 0.0020, criticality_factor: 0.10 } # CRYSTALS frame, PEEK (team 12/06)
+  - { id: lithium_battery,     mass_kg: 0.0722, criticality_factor: 0.85 } # 4 cells x 18.04 g
+  - { id: copper_wiring,       mass_kg: 0.0334, criticality_factor: 0.20 } # 2 magnetorquer rods 25.7 g + air-core wire 7.7 g
+  - { id: misc_electronics,    mass_kg: 0.0320, criticality_factor: 0.55 } # camera 22 g + miscellaneous 10 g
+  - { id: silicon_solar_cells, mass_kg: 0.0120, criticality_factor: 0.65 } # 3 body-mounted panels x 4.0 g
+  - { id: steel_fasteners,     mass_kg: 0.0042, criticality_factor: 0.12 } # 21 screws x 0.198 g
+
+launch:
+  vehicle: Falcon9_rideshare
+  propellant_share_kg:            # 0.435 kg / 16000 kg LEO * 140000 kg RP-1 (scaled from BOM dry mass)
+    kerosene: 3.8
+    LOX: 15.2
+
+reentry:
+  reentry_class: small_uncontrolled
+  expected_demise_fraction: 1.00  # full demise expected for <1 kg
+
+openlca:
+  product_system_id: redpill_2p_v1
+
+output:
+  reference_mission: smallsat_700km_sso

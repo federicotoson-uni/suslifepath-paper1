@@ -1,0 +1,56 @@
+id: sentinel6
+description: >
+  Sentinel-6 Michael Freilich — Copernicus / NASA-JPL altimetry mission,
+  launched November 2020 on Falcon 9 from Vandenberg, operational at 1336 km
+  in non-Sun-synchronous orbit (~66 deg). Medium-class platform (Jason-3
+  bus derivative), 1192 kg dry. Reference for the sparse-band operational
+  smallsat class (Letizia 2016 lower-impact baseline). Public data from
+  NASA JPL fact sheets and ESA Copernicus mission documentation.
+
+orbit:
+  altitude_km: 1336
+  inclination_deg: 66.0                # non-SSO
+  eccentricity: 0.001
+  operational_lifetime_yr: 5.5
+  residual_lifetime_yr: 25             # IADC-25yr compliant disposal
+
+mass_budget:
+  dry_mass_kg: 1192                    # NASA JPL fact sheet
+  propellant_mass_kg: 80               # hydrazine on-board
+  total_wet_mass_kg: 1272
+
+geometry:
+  exposed_surface_m2: 10                # SRAL altimeter + GNSS antennae
+  total_surface_m2: 25
+  cross_section_m2: 5
+
+cost:
+  build_cost_usd: 4.0e8                 # 2020 programme cost
+  programme_cost_usd: 4.5e8
+  reference_cost_class: medium_smallsat
+
+materials:                              # Jason-3 derivative inventory
+  - { id: aluminium_6061,      mass_kg: 358, criticality_factor: 0.15 }
+  - { id: CFRP_composites,     mass_kg: 262, criticality_factor: 0.40 }
+  - { id: silicon_solar_cells, mass_kg:  95, criticality_factor: 0.65 }
+  - { id: lithium_battery,     mass_kg:  48, criticality_factor: 0.85 }
+  - { id: copper_wiring,       mass_kg:  60, criticality_factor: 0.20 }
+  - { id: GaAs_payload,        mass_kg:  24, criticality_factor: 0.92 }
+  - { id: ASIC_electronics,    mass_kg: 167, criticality_factor: 0.55 }
+  - { id: misc_thermal,        mass_kg: 178, criticality_factor: 0.30 }
+
+launch:                                 # Falcon 9 from Vandenberg, 2020
+  vehicle: Falcon9_dedicated
+  propellant_share_kg:                  # share 1.2t/16t LEO = 0.075
+    kerosene: 10500                     # F9 first stage RP-1 share
+    LOX:      42000                     # F9 first stage LOX share (4:1)
+
+reentry:
+  reentry_class: medium_uncontrolled
+  expected_demise_fraction: 0.75        # mid-class partial demise
+
+openlca:
+  product_system_id: sentinel6_v1
+
+output:
+  reference_mission: smallsat_700km_sso

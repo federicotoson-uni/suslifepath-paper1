@@ -1,0 +1,100 @@
+{
+  "mission_id": "redpill_2p",
+  "reference_id": "smallsat_700km_sso",
+  "raw_scores": {
+    "terrestrial": {
+      "raw_score": 0.002235332962701705,
+      "by_impact_category": {
+        "Ecotoxicity freshwater (organics)": 0.058509576648856,
+        "Ecotoxicity freshwater (inorganics)": 0.0343810281672,
+        "Ionising radiation (human health)": 18.756698399999998,
+        "Ozone depletion": 0.0,
+        "Eutrophication marine": 0.01753057260272,
+        "Eutrophication terrestrial": 0.19516762094519996,
+        "Acidification": 0.09432787682320001,
+        "Photochemical ozone formation (human health)": 0.0547874754122,
+        "Particulate matter": 1.9279833181739995e-06,
+        "Eutrophication freshwater": 0.0,
+        "Land use": 2.9136747522319997,
+        "Water use": 37.201479228000004,
+        "Resource use minerals and metals": 0.00023863039787547712,
+        "Resource use fossils": 0.0,
+        "Human toxicity cancer (organics)": 0.0,
+        "Human toxicity non-cancer (inorganics)": 3.39206364792e-12,
+        "Human toxicity non-cancer (organics)": 1.7220776865788403e-09,
+        "Climate change (fossil)": 33.19975653572,
+        "Human toxicity non-cancer": 1.7254697502267604e-09,
+        "Climate change (biogenic)": 0.0,
+        "Climate change": 33.19975653572,
+        "Human toxicity cancer": 0.0,
+        "Climate change (land use)": 0.0,
+        "Ecotoxicity freshwater": 0.09289060481605599,
+        "Human toxicity cancer (inorganics)": 0.0
+      },
+      "by_lifecycle_tier": {
+        "manufacturing+AIT": 0.002235332962701705
+      },
+      "source": "ef31"
+    },
+    "atmospheric": {
+      "raw_score": 1.8599674999999998,
+      "by_species": {
+        "NOx": 0.0198375,
+        "Al2O3": 0.43151999999999996,
+        "BC": 0.17361000000000001,
+        "H2O": 1.2349999999999999,
+        "HCl": 0.0
+      },
+      "by_phase": {
+        "launch": 1.4117,
+        "reentry": 0.4482675
+      }
+    },
+    "orbital": {
+      "raw_score": 0.0710029113,
+      "DGP": 0.0005113413,
+      "CC": 0.02360937,
+      "MC": 0.0468822,
+      "breakdown_pct": {
+        "DGP": 0.005357560055352803,
+        "CC": 99.98699422566533,
+        "MC": 0.007648214279313118
+      },
+      "normalised_subscores": {
+        "DGP": 0.0005113413,
+        "CC": 9.543053009618086,
+        "MC": 0.0007299680809653562
+      }
+    }
+  },
+  "reference_raw_scores": {
+    "terrestrial": 1.9797332816077169,
+    "atmospheric": 1985.9875,
+    "orbital": 65.22747398499999
+  },
+  "reference_subscores_orbital": {
+    "DGP": 1.0,
+    "CC": 0.002473985,
+    "MC": 64.225
+  },
+  "ssci": {
+    "scores_norm": {
+      "terrestrial": 0.0011291081397017374,
+      "atmospheric": 0.0009365454213583922,
+      "orbital": 3.181431439666351
+    },
+    "SSCI_linear_equal": 1.0611656977424702,
+    "SSCI_linear_expert": 1.1141578990866916,
+    "SSCI_risk": 0.01498404207728987
+  },
+  "sensitivity_dirichlet_10k": {
+    "mean": 1.0483131900733635,
+    "median": 0.9169802682196326,
+    "p05": 0.08300567014544104,
+    "p25": 0.4134623803211165,
+    "p75": 1.5731029809098396,
+    "p95": 2.460758143389195,
+    "min": 0.0010282041100125483,
+    "max": 3.173341568796994
+  }
+}

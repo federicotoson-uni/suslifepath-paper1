@@ -1,0 +1,52 @@
+id: smallsat_700km_sso
+description: >
+  Reference mission for SSCI normalisation — notional 500 kg smallsat at
+  700 km SSO. Same reference adopted by Paper 0 (Toson 2026, Zenodo
+  preprint v2.0.0). All SSCI scores are expressed as multiples of the
+  domain-specific raw scores of this mission.
+
+orbit:
+  altitude_km: 700
+  inclination_deg: 98.0           # SSO at 700 km
+  eccentricity: 0.001
+  operational_lifetime_yr: 7
+  residual_lifetime_yr: 25        # IADC-25yr compliant
+
+mass_budget:
+  dry_mass_kg: 500
+  propellant_mass_kg: 0.0
+  total_wet_mass_kg: 500
+
+geometry:
+  exposed_surface_m2: 5.0
+  total_surface_m2: 15.0
+  cross_section_m2: 3.0
+
+cost:
+  build_cost_usd: 1.0e8           # 100 MUSD typical mid-size mission
+  programme_cost_usd: 3.0e8
+  reference_cost_class: smallsat
+
+materials:
+  - { id: aluminium_6061,      mass_kg: 200, criticality_factor: 0.15 }
+  - { id: silicon_solar_cells, mass_kg:  50, criticality_factor: 0.65 }
+  - { id: lithium_battery,     mass_kg:  30, criticality_factor: 0.85 }
+  - { id: copper_wiring,       mass_kg:  30, criticality_factor: 0.20 }
+  - { id: composites,          mass_kg: 100, criticality_factor: 0.40 }
+  - { id: misc_electronics,    mass_kg:  90, criticality_factor: 0.55 }
+
+launch:
+  vehicle: Falcon9_dedicated
+  propellant_share_kg:
+    kerosene: 4375                # 500/16000 * 140000 kg RP-1
+    LOX: 17500                    # 4:1 LOX:RP-1 mass ratio
+
+reentry:
+  reentry_class: medium_uncontrolled
+  expected_demise_fraction: 0.70  # partial demise for 500 kg class
+
+openlca:
+  product_system_id: smallsat_700km_sso_v1
+
+output:
+  reference_mission: self

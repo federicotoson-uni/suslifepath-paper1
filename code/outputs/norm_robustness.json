@@ -1,0 +1,49 @@
+{
+ "denominators": {
+  "A single-reference (baseline)": [
+   1.0,
+   0.002473985,
+   64.225
+  ],
+  "B catalogue-median": [
+   0.015761169999999998,
+   0.09162911424545829,
+   1.3339253491378287
+  ],
+  "C catalogue-geomean": [
+   0.1782471340602469,
+   0.04112845271918563,
+   5.054140280105455
+  ],
+  "D congested-shell ref (<600km med)": [
+   0.01576096,
+   0.09218886324066303,
+   0.702
+  ]
+ },
+ "dominance_pct": {
+  "A single-reference (baseline)": {
+   "DGP": 13.0,
+   "CC": 86.0,
+   "MC": 1.0
+  },
+  "B catalogue-median": {
+   "DGP": 42.66666666666667,
+   "CC": 28.333333333333332,
+   "MC": 28.999999999999996
+  },
+  "C catalogue-geomean": {
+   "DGP": 39.33333333333333,
+   "CC": 46.0,
+   "MC": 14.666666666666666
+  },
+  "D congested-shell ref (<600km med)": {
+   "DGP": 41.0,
+   "CC": 19.0,
+   "MC": 40.0
+  }
+ },
+ "abs_cc_median": 0.09162911424545829,
+ "frac_denser_than_ref": 0.9433333333333334,
+ "frac_below_600km": 0.85
+}

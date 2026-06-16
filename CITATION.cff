@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this toolchain, please cite both the software (this Zenodo record) and the associated paper."
+title: "SusLifePath — Space Sustainability Composite Indicator (SSCI) toolchain"
+abstract: >-
+  Open, reproducible computational toolchain for the Space Sustainability
+  Composite Indicator (SSCI): a multi-domain composite indicator coupling
+  terrestrial Life Cycle Assessment (EF 3.1, via OpenLCA), stratospheric
+  atmospheric perturbation, and an ECOB-aligned orbital module
+  (debris generation, operational congestion, in-orbit material criticality).
+type: software
+authors:
+  - family-names: Toson
+    given-names: Federico
+    orcid: "https://orcid.org/0000-0002-6978-3619"
+    affiliation: 'CISAS "G. Colombo", University of Padova'
+version: 1.0.0
+license: MIT
+repository-code: "https://github.com/federicotoson-uni/suslifepath-paper1"
+keywords:
+  - space sustainability
+  - life cycle assessment
+  - composite indicator
+  - orbital debris
+  - industrial ecology
+  - launch emissions
+preferred-citation:
+  type: article
+  title: "Bridging Life Cycle Assessment and orbital sustainability science: a multi-domain composite indicator for the environmental assessment of space missions"
+  authors:
+    - family-names: Toson
+      given-names: Federico
+      orcid: "https://orcid.org/0000-0002-6978-3619"
+  journal: "Journal of Cleaner Production"
+  year: 2026
+  notes: "Manuscript submitted; journal DOI to be added on acceptance."

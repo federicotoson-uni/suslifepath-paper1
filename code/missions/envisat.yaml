@@ -1,0 +1,59 @@
+id: envisat
+description: >
+  ENVISAT — European Space Agency Earth-observation flagship, launched March
+  2002 on Ariane 5 G+ from Kourou, lost contact April 2012 (defunct since,
+  uncontrolled residual lifetime ~150-200 years at 770 km perigee). Large
+  legacy platform (SPOT-Mk2 bus derivative), 8211 kg dry, 770 km SSO.
+  ESA reference for the upper baseline of the orbital debris-risk literature
+  (Letizia 2016). Public mass and orbit data from ESA fact sheets.
+
+orbit:
+  altitude_km: 770
+  inclination_deg: 98.4               # SSO at 770 km
+  eccentricity: 0.001
+  operational_lifetime_yr: 10          # 2002-2012
+  residual_lifetime_yr: 200            # defunct, uncontrolled
+
+mass_budget:
+  dry_mass_kg: 8211                    # ESA fact sheet
+  propellant_mass_kg: 330              # hydrazine N2H4 on-board (attitude + station keeping)
+  total_wet_mass_kg: 8541
+
+geometry:
+  exposed_surface_m2: 100              # large solar arrays + ASAR antenna
+  total_surface_m2: 250
+  cross_section_m2: 50
+
+cost:
+  build_cost_usd: 2.3e9                # 2002 build cost; retrospective for defunct platform
+  programme_cost_usd: 2.5e9
+  reference_cost_class: large_legacy
+
+materials:                             # SPOT-Mk2 derivative inventory, simplified
+  - { id: aluminium_6061,      mass_kg: 2463, criticality_factor: 0.15 }
+  - { id: CFRP_composites,     mass_kg: 2053, criticality_factor: 0.40 }
+  - { id: silicon_solar_cells, mass_kg:  575, criticality_factor: 0.65 }
+  - { id: NiCd_battery,        mass_kg:  246, criticality_factor: 0.80 }
+  - { id: copper_wiring,       mass_kg:  411, criticality_factor: 0.20 }
+  - { id: titanium_alloys,     mass_kg:  246, criticality_factor: 0.55 }
+  - { id: ASIC_electronics,    mass_kg:  821, criticality_factor: 0.55 }
+  - { id: misc_thermal,        mass_kg: 1396, criticality_factor: 0.30 }
+
+launch:                                # Ariane 5 G+ from Kourou, 2002
+  vehicle: Ariane5_G+
+  propellant_share_kg:                 # share for 8.2t/18t LEO payload = 0.456
+    APCP: 216000                       # 2x solid boosters 474t * 0.456
+    hydrogen: 11400                    # main EPC stage LH2 25t * 0.456
+    LOX: 59300                         # main EPC stage LOX 130t * 0.456
+    MMH: 2700                          # EPS upper stage hypergolic
+    N2O4: 1800                         # EPS upper stage hypergolic
+
+reentry:
+  reentry_class: large_uncontrolled
+  expected_demise_fraction: 0.65       # large platform, partial demise expected
+
+openlca:
+  product_system_id: envisat_v1
+
+output:
+  reference_mission: smallsat_700km_sso

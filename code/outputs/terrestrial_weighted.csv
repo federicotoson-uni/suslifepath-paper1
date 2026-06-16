@@ -1,0 +1,27 @@
+impact_category_Pt,reference,redpill_2p,sentinel6,envisat
+Acidification,0.0886673,0.000105243,0.349034,1.91155
+Climate change,0.804358,0.000925697,3.3014,17.8992
+Climate change (biogenic),0,0,0,0
+Climate change (fossil),0,0,0,0
+Climate change (land use),0,0,0,0
+Ecotoxicity freshwater,3.39765e-05,3.14458e-08,0.000152567,0.00094793
+Ecotoxicity freshwater (inorganics),0,0,0,0
+Ecotoxicity freshwater (organics),0,0,0,0
+Eutrophication freshwater,0,0,0,0
+Eutrophication marine,0.0202839,2.6549e-05,0.082676,0.45248
+Eutrophication terrestrial,0.0311658,4.09647e-05,0.127117,0.695636
+Human toxicity cancer,0,0,0,0
+Human toxicity cancer (inorganics),0,0,0,0
+Human toxicity cancer (organics),0,0,0,0
+Human toxicity non-cancer,0.000232279,2.46114e-07,0.000952774,0.00568218
+Human toxicity non-cancer (inorganics),0,0,0,0
+Human toxicity non-cancer (organics),0,0,0,0
+Ionising radiation (human health),0.126187,0.000222672,0.543423,2.9516
+Land use,0.000246111,2.82302e-07,0.000730696,0.00433846
+Ozone depletion,0,0,0,0
+Particulate matter,0.257833,0.000290332,0.957345,5.41421
+Photochemical ozone formation (human health),0.0544107,6.40943e-05,0.226156,1.28307
+Resource use fossils,0,0,0,0
+Resource use minerals and metals,0.18844,0.000283179,0.89195,3.1798
+Water use,0.407875,0.000276042,1.11881,6.62415
+TOTAL_Pt,1.97973,0.00223533,7.59975,40.4226
