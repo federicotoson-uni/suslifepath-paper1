@@ -105,7 +105,7 @@ ax_b.scatter(h, r25, s=9, color=C_R25, lw=0, label="25-year rule")
 ax_b.scatter(h, r5, s=3.5, color=C_R5, lw=0, label="5-year rule")
 ax_b.set_yscale("log")
 ax_b.set_ylim(1e-5, 3e3)
-for x, lab, ha in ((500, "5 yr ", "right"), (610, " 25 yr", "left"), (869, "cap", "center")):
+for x, lab, ha in ((497, "5 yr ", "right"), (610, " 25 yr", "left"), (869, "cap", "center")):
     ax_b.axvline(x, color=AXIS, lw=0.6, ls=":")
     ax_b.text(x, 1.4e3, lab, fontsize=6.5, color=MUTED, ha=ha, va="bottom")
 ax_b.set_xlabel("operating altitude $h$ (km)")
