@@ -69,6 +69,35 @@ cd code
 regenerates `outputs/*/results.json` and `outputs/_summary.md`, reproducing the
 manuscript's Table values (terrestrial pulled live from OpenLCA, `source: ef31`).
 
+## IAC 2026 A6: population response to disposal rules
+
+Added in v1.1.0. `code/iac_a6_disposal_sweep.py` re-scores the 600-mission
+catalogue-scale sample (same seed as `paper1_catalogue_scale.py`, paired design)
+under three post-mission disposal rules (no disposal, 25-year cap, 5-year cap)
+and two congestion conventions (operations only, whole time in orbit), for the
+IAC 2026 paper IAC-26,A6,IPB,14,x110076 (Toson and Porcarelli, "A hybrid life
+cycle assessment framework for satellite end-of-life sustainability:
+incorporating orbital collision risk and congestion metrics", 77th IAC,
+Antalya, October 2026).
+
+Outputs behind every table and figure of that paper:
+`code/outputs/iac_a6_sweep_scale{0.8,1.0,1.8}.json`, one file per scale of the
+residual-lifetime model (0.8, nominal, 1.8). Each file holds `_meta`
+(`altitudini`, operating altitude in km; `archetipi`, cubesat / smallsat /
+medium / large; `seed`) and, for each scenario `uncontrolled`, `rule25`,
+`rule5`, six hundred values of `tres` (residual lifetime after end of
+operations, years, capped at 1000), `dgp` (collision burden index, reference
+mission = 1), `cc_op` and `cc_ext` (congestion over operations only and over
+the whole time in orbit) and `mc` (material criticality, independent of the
+rule). Figure scripts and the archetype-mix reweighting are in
+`code/figures/iac_a6/`.
+
+Run: `python code/iac_a6_disposal_sweep.py --n 600 [--decay-scale 0.8]`. It
+needs MATLAB and the Paper 0 toolchain (`suslifepath-paper0`) checked out
+next to this repository; `--no-matlab` runs without the DGP term. The
+two-point decay model and its calibration sources are documented in the
+script docstring.
+
 ## Notes
 - In the code and `outputs/`, the geometric-mean aggregation carries the key
   `SSCI_risk`; it is `SSCI^geo` in the manuscript.
