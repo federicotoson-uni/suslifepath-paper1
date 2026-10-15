@@ -15,11 +15,21 @@ they are to be validated by the author and are reported with a data-quality
 caveat in the manuscript. Units follow each process's own reference unit
 (m3 per kg, per m2, per item, or per kWh).
 
-Sources for the class intensities (blue/consumptive water, order of
-magnitude): primary metals and semiconductors from water-footprint
-literature (e.g. precious metals very high per kg but used at gram scale;
-electronic-grade Si a few m3/kg; primary Al ~1.5 m3/kg); polymers, optics
-and propellants low; thermoelectric/hydro grid water ~1e-3 m3/kWh.
+Revision of 13/10/2026 (JCLEPRO-D-26-20565, R4-M10): the class values are
+consumption (water evaporated or incorporated), as AWARE in EF 3.1 requires,
+not water use. Every process already has its own electricity input, so the
+values are direct only and the power-plant water enters once, through the
+grid process. Sources: primary aluminium direct 0.015 m3/kg (IAI 2022, 2019
+data); electronic-grade Si direct evaporation 3.1 (Stolz et al. 2017, IEA
+PVPS T12-11, Tab. A.14); copper cathode 0.1 (ICA 2023: 0.057; Pena and
+Huijbregts 2014); grid electricity 0.01 m3/kWh (Mekonnen et al. 2015, life
+cycle, Europe 0.012); glass 0.04, PET 0.05, Cr-Ni steel 0.12 and LOX 0.01
+(Gerbens-Leenes et al. 2018); kerosene 0.005 (Mekonnen et al. 2015); gold
+200 (Norgate and Lovel 2006); nickel alloys 0.15 (Mudd 2008). Titanium 1.0
+and MgO 0.1 are upper bounds; GaAs, beryllium, Li-ion and LiCoO2, PCB and
+FR4, CFRP, polyimide and PTFE, MMH, HTPB and iodine keep order-of-magnitude
+values without published consumption data. Full table and DOIs:
+revisione_JoCP/acqua_fonti.md.
 
 Usage:  .venv/bin/python reground_water.py [--apply]
 Without --apply it prints the planned old->new (dry run). Author: F. Toson.
@@ -36,30 +46,30 @@ RULES = [
     ("Gallium arsenide",          15.0),   # compound semiconductor
     ("GaAs",                       15.0),
     ("Beryllium",                 20.0),   # specialty metal
-    ("Silicon, electronic",        8.0),   # ultrapure-water intensive
-    ("Titanium",                   3.0),
-    ("Copper",                     0.3),
-    ("Aluminium",                  1.5),
-    ("Aluminum",                   1.5),
+    ("Silicon, electronic",        3.1),   # direct evaporation (Stolz et al. 2017)
+    ("Titanium",                   1.0),   # upper bound (Ashby use data 0.47-1.41)
+    ("Copper",                     0.1),   # ICA 2023 cradle-to-gate 0.057
+    ("Aluminium",                  0.015), # IAI 2022 direct; smelter power is an input
+    ("Aluminum",                   0.015),
     ("Stainless",                  0.12),
     ("Incoloy",                    0.15),
     ("Nichrome",                   0.15),
-    ("Magnesium",                  0.5),
+    ("Magnesium",                  0.1),   # upper bound, no MgO data
     ("Lithium cobalt",             0.5),
     ("Li-ion battery",            0.5),
     ("PCB",                        0.3),
     ("FR4",                        0.3),
     ("CFRP",                       0.5),
-    ("Zerodur",                    0.4),
-    ("Borosilicate",               0.4),
-    ("Fused silica",               0.4),
-    ("coverglass",                 0.4),
+    ("Zerodur",                    0.04),  # glass, upper bound (Gerbens-Leenes 2018)
+    ("Borosilicate",               0.04),
+    ("Fused silica",               0.04),
+    ("coverglass",                 0.04),
     ("Kapton",                     0.3),
     ("PTFE",                       0.3),
-    ("Mylar",                      0.3),
+    ("Mylar",                      0.05),  # PET 0.015-0.044
     ("Polyimide",                  0.3),
-    ("RP-1",                       0.05),
-    ("kerosene",                   0.05),
+    ("RP-1",                       0.005), # Mekonnen et al. 2015
+    ("kerosene",                   0.005),
     ("LOX",                        0.01),
     ("liquid oxygen",              0.01),
     ("MMH",                        0.2),
@@ -68,7 +78,7 @@ RULES = [
     ("Iodine",                     0.5),
     ("iodine",                     0.5),
     ("Solar panel",                2.0),    # per m2
-    ("Electricity",                0.002),  # per kWh (thermoelectric/hydro consumptive)
+    ("Electricity",                0.01),   # per kWh, life cycle (Mekonnen et al. 2015)
     ("Ground Station",            50.0),    # operational facility, 1 yr
     ("Assemblaggio",               2.0),    # assembly finishing water, per item
     ("Radiator",                   0.3),    # per m2

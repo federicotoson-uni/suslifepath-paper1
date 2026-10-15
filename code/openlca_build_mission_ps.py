@@ -15,11 +15,13 @@ import olca_ipc as ipc
 import olca_schema as o
 
 AIT_KWH_PER_KG = 10.0
+AIT_MIN_KWH = 50.0   # floor: a test campaign does not scale below this (PocketCube)
 
 # material class (yaml) -> provider process name (seed v3 / IPC-built)
 PROVIDER_FOR_CLASS = {
     "aluminium_6061":      "Produzione Aluminium 6061-T6 structure, machined",
     "titanium_alloys":     "Produzione Titanium alloy Ti-6Al-4V",
+    "titanium_structure":  "Produzione Titanium structure, machined",
     "CFRP_composites":     "Produzione CFRP composite structure",
     "PCB_FR4":             "Produzione FR4 substrate, rad-hard",
     "ASIC_electronics":    "Produzione PCB OBC space-grade 10x15cm",
@@ -90,7 +92,7 @@ def main(paths):
         iid += 1
         elname = "Produzione Electricity, EU grid mix 2023"
         elfl = ref_flow(elname)
-        exch.append(o.Exchange(amount=AIT_KWH_PER_KG * dry, is_input=True, internal_id=iid,
+        exch.append(o.Exchange(amount=max(AIT_KWH_PER_KG * dry, AIT_MIN_KWH), is_input=True, internal_id=iid,
             flow=o.Ref(id=elfl.id, name=elfl.name, ref_type=o.RefType.Flow),
             unit=unit_map["kWh"], flow_property=fpref("Energy"),
             default_provider=o.Ref(id=procs[elname].id, name=elname,

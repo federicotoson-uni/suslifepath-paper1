@@ -27,13 +27,20 @@ cost:
   programme_cost_usd: 3.0e8
   reference_cost_class: smallsat
 
+# Same inventory as the OpenLCA product system smallsat_700km_sso_v1
+# ("Reference smallsat 500kg manufacturing", assembled by hand on 12/06/2026);
+# aligned on 13/10/2026, so that MC and the terrestrial domain use one reference.
 materials:
-  - { id: aluminium_6061,      mass_kg: 200, criticality_factor: 0.15 }
-  - { id: silicon_solar_cells, mass_kg:  50, criticality_factor: 0.65 }
-  - { id: lithium_battery,     mass_kg:  30, criticality_factor: 0.85 }
-  - { id: copper_wiring,       mass_kg:  30, criticality_factor: 0.20 }
-  - { id: composites,          mass_kg: 100, criticality_factor: 0.40 }
-  - { id: misc_electronics,    mass_kg:  90, criticality_factor: 0.55 }
+  - { id: aluminium_6061,      mass_kg: 175, criticality_factor: 0.15 }  # primary structure 35%
+  - { id: CFRP_composites,     mass_kg:  50, criticality_factor: 0.40 }  # panels and booms 10%
+  - { id: titanium_structure,  mass_kg:  30, criticality_factor: 0.55 }  # fittings 6%
+  - { id: steel_fasteners,     mass_kg:  20, criticality_factor: 0.12 }  # fasteners and tanks 4%
+  - { id: misc_thermal,        mass_kg:  50, criticality_factor: 0.30 }  # MLI and miscellaneous 10%
+  - { id: lithium_battery,     mass_kg:  40, criticality_factor: 0.85 }  # battery 8%
+  - { id: silicon_solar_cells, mass_kg:  20, criticality_factor: 0.65 }  # solar cells 4%
+  - { id: copper_wiring,       mass_kg:  25, criticality_factor: 0.20 }  # harness 5%
+  - { id: PCB_FR4,             mass_kg:  60, criticality_factor: 0.30 }  # avionics boards 12%
+  - { id: misc_electronics,    mass_kg:  30, criticality_factor: 0.55 }  # integrated electronics 6%
 
 launch:
   vehicle: Falcon9_dedicated

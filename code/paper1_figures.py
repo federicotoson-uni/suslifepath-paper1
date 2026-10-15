@@ -187,8 +187,8 @@ def fig6_single_vs_ssci(data):
     ecob = [data[m]["ssci"]["scores_norm"]["orbital"] for m in MISSIONS]        # ECOB-derived
     ssci = [data[m]["ssci"]["SSCI_linear_equal"] for m in MISSIONS]
 
-    ax.bar(x - w, pefcr, w, label="terrestrial-only (PEFCR-style)", color=C_T)
-    ax.bar(x, ecob, w, label="ECOB-derived (orbital-only)", color=C_O)
+    ax.bar(x - w, pefcr, w, label="terrestrial only (PEFCR scope)", color=C_T)
+    ax.bar(x, ecob, w, label="orbital sub-score only", color=C_O)
     ax.bar(x + w, ssci, w, label=r"composite $SSCI^{lin}$",
            color="none", edgecolor=C_S, linewidth=1.3, hatch="////")
 
@@ -206,7 +206,7 @@ def fig6_single_vs_ssci(data):
     ax.set_xticklabels([LABELS[m] for m in MISSIONS])
     ax.set_ylabel("normalised score (dimensionless)")
     ax.legend(loc="upper left", frameon=False)
-    ax.set_title("Single-indicator scores versus the composite SSCI")
+    ax.set_title("Domain scores taken alone versus the composite SSCI")
     fig.savefig(FIG / "fig6_single_vs_ssci.pdf")
     plt.close(fig)
     gaps = [(data[m]["ssci"]["scores_norm"]["terrestrial"] - data[m]["ssci"]["SSCI_linear_equal"])
@@ -254,8 +254,8 @@ def fig7_catalogue_scale():
     axR.set_title("(b) Dominant orbital driver (reference normalisation)", fontsize=9)
     under = 100 * np.mean(gaps < 0)
     axR.text(0.5, -0.42,
-             f"terrestrial-only underestimates {under:.0f}% of missions "
-             f"(median {np.median(gaps[gaps<0]):.0f}%, reference normalisation)",
+             f"terrestrial-only score below the composite for {under:.0f}% of missions "
+             f"(median difference {np.median(gaps[gaps<0]):.0f}%, reference normalisation)",
              transform=axR.transAxes, ha="center", fontsize=7.5, color=C_REF)
     fig.subplots_adjust(bottom=0.28, wspace=0.35)
     fig.savefig(FIG / "fig7_catalogue_scale.pdf")

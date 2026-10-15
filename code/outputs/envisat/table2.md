@@ -2,9 +2,9 @@
 
 | Quantity | Value | Notes |
 |---|---|---|
-| $\tilde{I}_T$ (terrestrial) | 20.418 | EF 3.1 weighted aggregate (placeholder mass-scaling for v0) |
+| $\tilde{I}_T$ (terrestrial) | 21.580 | EF 3.1 weighted aggregate (placeholder mass-scaling for v0) |
 | $\tilde{I}_A$ (atmospheric) | 379.872 | Ross/Maloney/Ryan emission model |
-| $\tilde{I}_O$ (orbital)     | 307.558 | ECOB proxy + CC + MC |
-| $SSCI^{lin}$ — equal weights   | 235.949 | $w_T = w_A = w_O = 1/3$ |
-| $SSCI^{lin}$ — expert weights  | 264.698 | Indicative Delphi |
-| $SSCI^{risk}$ (geometric)      | 133.617 | Eq. 9 of Section 3.4 |
+| $\tilde{I}_O$ (orbital)     | 308.133 | ECOB proxy + CC + MC |
+| $SSCI^{lin}$ — equal weights   | 236.528 | $w_T = w_A = w_O = 1/3$ |
+| $SSCI^{lin}$ — expert weights  | 265.190 | Indicative Delphi |
+| $SSCI^{risk}$ (geometric)      | 136.189 | Eq. 9 of Section 3.4 |

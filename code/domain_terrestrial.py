@@ -7,9 +7,9 @@ ground operations → end-of-life recycling/disposal of recoverable elements).
 
 The inventory lives in the SusLifePath_2026_v1 OpenLCA database (built
 12/06/2026: complete reference data + openLCA LCIA Methods 2.8.0 with the
-official EF 3.1 + the audited/remapped SusLifePath seed v3 process library
-+ the redpill_2p_v1 and smallsat_700km_sso_v1 product systems created via
-IPC from the team mass budget).
+official EF 3.1 + the SusLifePath process library and the product systems of
+the three cases and of the reference mission; the release ships them as
+SusLifePath_seed_v4.zip, exported from this database).
 
 Bridge to OpenLCA: olca-ipc Python client requires OpenLCA running in
 server mode (Tools > Developer tools > IPC Server, JSON-RPC, port 8080,

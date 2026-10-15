@@ -32,7 +32,11 @@ import domain_atmospheric as atm
 
 HERE = Path(__file__).parent
 OUT = HERE / "outputs"
-CATALOGUE = HERE.parent.parent / "Paper0_SimplifiedAlgorithm" / "data" / "celestrak_active.csv"
+# Paper 0 checked out next to this repository, as the public clone or the working copy
+# (same search order as the MATLAB scripts)
+CATALOGUE = next((p for p in (HERE.resolve().parent.parent / d / "data" / "celestrak_active.csv"
+                              for d in ("suslifepath-paper0", "Paper0_SimplifiedAlgorithm")) if p.exists()),
+                 HERE.resolve().parent.parent / "suslifepath-paper0" / "data" / "celestrak_active.csv")
 MATLAB_BIN = "/Applications/MATLAB_R2026a.app/bin/matlab"
 
 N = 300
@@ -53,13 +57,25 @@ REF_TERR, REF_ATM = _ref["terrestrial"], _ref["atmospheric"]
 _os = _rj["reference_subscores_orbital"]
 DGP_REF, CC_REF, MC_REF = _os["DGP"], _os["CC"], _os["MC"]
 
+# terrestrial intensity of each class = EF 3.1 single score per kg of dry mass of
+# the case study of the same class, read from the pipeline outputs (13/10/2026:
+# the medium value had been left at 0.0050 against Sentinel-6's 0.0064)
+import yaml
+def _dry(stem):
+    return float(yaml.safe_load(open(HERE / "missions" / f"{stem}.yaml"))["mass_budget"]["dry_mass_kg"])
+def _ptkg(mid):
+    raw = json.load(open(OUT / mid / "results.json"))["raw_scores"]["terrestrial"]["raw_score"]
+    return raw / _dry(mid)
+PT_PER_KG = {"cubesat": _ptkg("redpill_2p"), "smallsat": REF_TERR / _dry("_reference_smallsat"),
+             "medium": _ptkg("sentinel6"), "large": _ptkg("envisat")}
+
 # mission-class archetypes: (name, prob, mass_kg, T_op, T_res, ex_surf, tot_surf,
 #                            Pt_per_kg, launcher, demise_frac)
 ARCHETYPES = [
-    ("cubesat",  0.50,    6.0, 3,  5,  0.04, 0.12, 0.0051, "kerosene", 1.00),
-    ("smallsat", 0.35,  200.0, 5, 25,  1.5,  4.0,  0.0040, "kerosene", 0.80),
-    ("medium",   0.12, 1000.0, 6, 25,  6.0,  18.0, 0.0050, "kerosene", 0.75),
-    ("large",    0.03, 5000.0, 10, 80, 25.0, 60.0, 0.0049, "mixed",    0.65),
+    ("cubesat",  0.50,    6.0, 3,  5,  0.04, 0.12, PT_PER_KG["cubesat"],  "kerosene", 1.00),
+    ("smallsat", 0.35,  200.0, 5, 25,  1.5,  4.0,  PT_PER_KG["smallsat"], "kerosene", 0.80),
+    ("medium",   0.12, 1000.0, 6, 25,  6.0,  18.0, PT_PER_KG["medium"],   "kerosene", 0.75),
+    ("large",    0.03, 5000.0, 10, 80, 25.0, 60.0, PT_PER_KG["large"],    "mixed",    0.65),
 ]
 # per-kg-payload propellant intensities (kg propellant / kg payload), from the
 # case-study launcher shares: kerosene-LOX (Falcon 9) and APCP-stack (Ariane 5)

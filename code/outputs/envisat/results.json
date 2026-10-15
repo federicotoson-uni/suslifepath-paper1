@@ -3,7 +3,7 @@
   "reference_id": "smallsat_700km_sso",
   "raw_scores": {
     "terrestrial": {
-      "raw_score": 40.422646493260686,
+      "raw_score": 39.249749214352526,
       "by_impact_category": {
         "Ecotoxicity freshwater (organics)": 2344.4390878039308,
         "Ecotoxicity freshwater (inorganics)": 455.7345502710002,
@@ -16,7 +16,7 @@
         "Particulate matter": 0.03595375419958252,
         "Eutrophication freshwater": 0.0,
         "Land use": 44777.81754741002,
-        "Water use": 892719.4308150003,
+        "Water use": 734651.0741000003,
         "Resource use minerals and metals": 2.679569148591064,
         "Resource use fossils": 0.0,
         "Human toxicity cancer (organics)": 0.0,
@@ -32,7 +32,7 @@
         "Human toxicity cancer (inorganics)": 0.0
       },
       "by_lifecycle_tier": {
-        "manufacturing+AIT": 40.422646493260686
+        "manufacturing+AIT": 39.249749214352526
       },
       "source": "ef31"
     },
@@ -56,45 +56,45 @@
       "CC": 0.005957341,
       "MC": 1096.88425,
       "breakdown_pct": {
-        "DGP": 97.88800878200192,
-        "CC": 0.26098028134961915,
-        "MC": 1.8510109366484715
+        "DGP": 97.70514781246838,
+        "CC": 0.260492753736477,
+        "MC": 2.0343594337951463
       },
       "normalised_subscores": {
         "DGP": 903.186,
         "CC": 2.4079939854121992,
-        "MC": 17.078773841961855
+        "MC": 18.805610561056106
       }
     }
   },
   "reference_raw_scores": {
-    "terrestrial": 1.9797332816077169,
+    "terrestrial": 1.8187945565109827,
     "atmospheric": 1985.9875,
-    "orbital": 65.22747398499999
+    "orbital": 59.329973985
   },
   "reference_subscores_orbital": {
     "DGP": 1.0,
     "CC": 0.002473985,
-    "MC": 64.225
+    "MC": 58.3275
   },
   "ssci": {
     "scores_norm": {
-      "terrestrial": 20.418228490069104,
+      "terrestrial": 21.580089446521015,
       "atmospheric": 379.8717429364485,
-      "orbital": 307.5575892757914
+      "orbital": 308.1332015154895
     },
-    "SSCI_linear_equal": 235.9491869007697,
-    "SSCI_linear_expert": 264.69841054362365,
-    "SSCI_risk": 133.61662537512476
+    "SSCI_linear_equal": 236.52834463281968,
+    "SSCI_linear_expert": 265.190340066631,
+    "SSCI_risk": 136.1892752467062
   },
   "sensitivity_dirichlet_10k": {
-    "mean": 234.77087047665975,
-    "median": 246.38784976554825,
-    "p05": 93.12412159048665,
-    "p25": 179.1847967807011,
-    "p75": 297.61612133269597,
-    "p95": 343.7260169033521,
-    "min": 24.060602718251637,
-    "max": 378.94409274682283
+    "mean": 235.35245527833644,
+    "median": 246.9109733290831,
+    "p05": 94.10959637233914,
+    "p25": 179.93057552853318,
+    "p75": 298.06594919569625,
+    "p95": 343.95515131390795,
+    "min": 25.211833530297383,
+    "max": 378.95026645451793
   }
 }

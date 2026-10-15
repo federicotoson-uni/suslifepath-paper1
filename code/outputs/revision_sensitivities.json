@@ -1,0 +1,329 @@
+{
+ "A_cc_boundary": {
+  "redpill_2p": {
+   "ratio_ext_op": 5.0,
+   "share_after_ops": 0.8
+  },
+  "sentinel6": {
+   "ratio_ext_op": 5.545454545454546,
+   "share_after_ops": 0.819672131147541
+  },
+  "envisat": {
+   "ratio_ext_op": 21.0,
+   "share_after_ops": 0.9523809523809523
+  },
+  "sample_archetype": {
+   "median_ratio": 2.666666666666667,
+   "share_after_ops_total": 0.7892259144698307,
+   "median_share_after_ops": 0.625,
+   "spearman_rank_ext_vs_op": 0.9508941210457894
+  },
+  "sample_natural_uncontrolled": {
+   "median_ratio": 2.205914309591436,
+   "share_after_ops_total": 0.7165098342852593,
+   "median_share_after_ops": 0.5466732105987714,
+   "spearman_rank_ext_vs_op": 0.601658685096501
+  }
+ },
+ "B_same_constellation": {
+  "475km_STARLINK": {
+   "objects_in_shell": 7209,
+   "own": 6537,
+   "own_share": 0.9067831876820641
+  },
+  "525km_STARLINK": {
+   "objects_in_shell": 2450,
+   "own": 1815,
+   "own_share": 0.7408163265306122
+  },
+  "550km_STARLINK": {
+   "objects_in_shell": 2857,
+   "own": 2499,
+   "own_share": 0.8746937346867344
+  },
+  "1200km_ONEWEB": {
+   "objects_in_shell": 654,
+   "own": 646,
+   "own_share": 0.9877675840978594
+  }
+ },
+ "C_terrestrial_uncertainty": {
+  "terrestrial_x0.1": {
+   "redpill_2p": {
+    "lin": 1.060839456745928,
+    "geo": 0.007209834632411237
+   },
+   "sentinel6": {
+    "lin": 1.5147288236886451,
+    "geo": 1.1964423516963933
+   },
+   "envisat": {
+    "lin": 230.0543177988634,
+    "geo": 63.21346192429288
+   },
+   "catalogue": {
+    "share_terrestrial_below": 1.0,
+    "median_difference": -0.995355130476419,
+    "median_ssci": 4.147095310570666
+   },
+   "ranking_lin": [
+    "redpill_2p",
+    "sentinel6",
+    "envisat"
+   ],
+   "ranking_geo": [
+    "redpill_2p",
+    "sentinel6",
+    "envisat"
+   ]
+  },
+  "terrestrial_x1": {
+   "redpill_2p": {
+    "lin": 1.0612168050424513,
+    "geo": 0.015533117841460043
+   },
+   "sentinel6": {
+    "lin": 2.7583199889434056,
+    "geo": 2.5776569071180364
+   },
+   "envisat": {
+    "lin": 236.52834463281965,
+    "geo": 136.1892752467062
+   },
+   "catalogue": {
+    "share_terrestrial_below": 0.9866666666666667,
+    "median_difference": -0.9541896540379251,
+    "median_ssci": 4.1527975047272
+   },
+   "ranking_lin": [
+    "redpill_2p",
+    "sentinel6",
+    "envisat"
+   ],
+   "ranking_geo": [
+    "redpill_2p",
+    "sentinel6",
+    "envisat"
+   ]
+  },
+  "terrestrial_x10": {
+   "redpill_2p": {
+    "lin": 1.0649902880076854,
+    "geo": 0.033465087921994686
+   },
+   "sentinel6": {
+    "lin": 15.194231641491013,
+    "geo": 5.553393459695391
+   },
+   "envisat": {
+    "lin": 301.2686129723827,
+    "geo": 293.41089900180435
+   },
+   "catalogue": {
+    "share_terrestrial_below": 0.7,
+    "median_difference": -0.5972472688138799,
+    "median_ssci": 4.205603141112956
+   },
+   "ranking_lin": [
+    "redpill_2p",
+    "sentinel6",
+    "envisat"
+   ],
+   "ranking_geo": [
+    "redpill_2p",
+    "sentinel6",
+    "envisat"
+   ]
+  }
+ },
+ "D_without_atmospheric": {
+  "redpill_2p": {
+   "full_lin": 1.0612168050424513,
+   "TO_lin": 1.591356934852998
+  },
+  "sentinel6": {
+   "full_lin": 2.7583199889434056,
+   "TO_lin": 2.923470076504818
+  },
+  "envisat": {
+   "full_lin": 236.52834463281965,
+   "TO_lin": 164.85664548100524
+  },
+  "ranking_full": [
+   "redpill_2p",
+   "sentinel6",
+   "envisat"
+  ],
+  "ranking_TO": [
+   "redpill_2p",
+   "sentinel6",
+   "envisat"
+  ],
+  "sample_spearman_full_vs_TO": 0.9968555206168956,
+  "sample_spearman_full_vs_O": 0.989833664818498,
+  "sample_median_share_atmospheric": 0.01572488277359306
+ },
+ "E_dgp_horizon_factor": {
+  "redpill_2p": {
+   "horizon_H100": 1.0,
+   "horizon_H200": 1.0,
+   "horizon_H1000": 1.0,
+   "mass_fixed200_over_presence_area": 0.39706814135811713
+  },
+  "sentinel6": {
+   "horizon_H100": 1.0,
+   "horizon_H200": 1.0,
+   "horizon_H1000": 1.0,
+   "mass_fixed200_over_presence_area": 1.559213019365747
+  },
+  "envisat": {
+   "horizon_H100": 0.5238095238095238,
+   "horizon_H200": 1.0,
+   "horizon_H1000": 1.0,
+   "mass_fixed200_over_presence_area": 0.3044919704406792
+  }
+ },
+ "F_launch_allocation": {
+  "redpill_2p": {
+   "iA_capacity_share": 0.0009365454213583922,
+   "iA_full_attribution": 3.523325643670093e-05,
+   "ssci_lin_capacity_share": 1.0612168050424513,
+   "ssci_lin_full_attribution": 1.0609163676541442,
+   "launch_factor": 1.0
+  },
+  "sentinel6": {
+   "iA_capacity_share": 2.4280198138205797,
+   "iA_full_attribution": 1.0026739196950947,
+   "ssci_lin_capacity_share": 2.7583199889434056,
+   "ssci_lin_full_attribution": 2.283204690901577,
+   "launch_factor": 13.333333333333334
+  },
+  "envisat": {
+   "iA_capacity_share": 379.87174293644847,
+   "iA_full_attribution": 31.215499547412026,
+   "ssci_lin_capacity_share": 236.52834463281965,
+   "ssci_lin_full_attribution": 120.30959683647417,
+   "launch_factor": 2.1929824561403506
+  },
+  "reference_launch_factor": 32.25806451612903
+ },
+ "G_propellant_production": {
+  "redpill_2p": {
+   "added_climate_kg": {
+    "low": 4.218,
+    "mid": 20.671999999999997,
+    "high": 21.659999999999997
+   },
+   "added_points": {
+    "low": 0.00011760899336111114,
+    "mid": 0.0005763900215175176,
+    "high": 0.0006039380740165166
+   },
+   "single_score": 0.0022877300920848783,
+   "relative_increase": {
+    "low": 0.051408596568282436,
+    "mid": 0.25194843723554633,
+    "high": 0.26399009048577465
+   },
+   "normalised_terrestrial_ratio": {
+    "low": 0.9785572495128688,
+    "mid": 0.9172718484911001,
+    "high": 0.9144114551549488
+   },
+   "ssci_lin_new": {
+    "low": 1.0612078146142634,
+    "mid": 1.061182119123511,
+    "high": 1.0611809198295634
+   }
+  },
+  "sentinel6": {
+   "added_climate_kg": {
+    "low": 11655.0,
+    "mid": 57120.0,
+    "high": 59850.0
+   },
+   "added_points": {
+    "low": 0.3249722184978071,
+    "mid": 1.5926566384036673,
+    "high": 1.6687762571509015
+   },
+   "single_score": 7.5394561396350275,
+   "relative_increase": {
+    "low": 0.04310287273765326,
+    "mid": 0.21124290783138175,
+    "high": 0.22133907622038163
+   },
+   "normalised_terrestrial_ratio": {
+    "low": 0.9708270233254076,
+    "mid": 0.8874479075923725,
+    "high": 0.8835563271663552
+   },
+   "ssci_lin_new": {
+    "low": 2.718009704435954,
+    "mid": 2.602799113666669,
+    "high": 2.5974218525148096
+   }
+  },
+  "envisat": {
+   "added_climate_kg": {
+    "low": 523660.0,
+    "mid": 789360.0,
+    "high": 1017360.0
+   },
+   "added_points": {
+    "low": 14.601025477354069,
+    "mid": 22.00944404920026,
+    "high": 28.366686933584646
+   },
+   "single_score": 39.249749214352526,
+   "relative_increase": {
+    "low": 0.37200302599678486,
+    "mid": 0.5607537497628654,
+    "high": 0.7227227562313124
+   },
+   "normalised_terrestrial_ratio": {
+    "low": 1.276937921018372,
+    "mid": 1.1435259108958382,
+    "high": 1.246273554050262
+   },
+   "ssci_lin_new": {
+    "low": 238.5204596683897,
+    "mid": 237.56077863116153,
+    "high": 238.2998797410588
+   }
+  },
+  "_reference_smallsat": {
+   "added_climate_kg": {
+    "low": 4856.25,
+    "mid": 23800.0,
+    "high": 24937.5
+   },
+   "added_points": {
+    "low": 0.13540509104075296,
+    "mid": 0.6636069326681947,
+    "high": 0.6953234404795423
+   },
+   "single_score": 1.8187945565109827,
+   "relative_increase": {
+    "low": 0.07444771074117482,
+    "mid": 0.3648608526414333,
+    "high": 0.3822990551573842
+   }
+  },
+  "kg_co2e_per_climate_point": 35864.604223325776
+ },
+ "H_tradeoff_sentinel6_disposal": {
+  "natural_residual_lifetime_yr": 1000.0,
+  "dgp_factor_without_disposal": 32.967213114754095,
+  "orbital_with": 1.701636268827101,
+  "orbital_without": 2.197759850794314,
+  "ssci_lin_with": 2.7583199889434056,
+  "ssci_lin_without": 2.92369451626581,
+  "onboard_propellant_kg": 80,
+  "terrestrial_relative_increase_if_all_propellant_charged": {
+   "low": 0.005917168286593326,
+   "mid": 0.008875752429889989,
+   "high": 0.011834336573186652
+  }
+ }
+}
