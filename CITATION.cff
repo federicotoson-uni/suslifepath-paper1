@@ -15,7 +15,7 @@ authors:
     given-names: Federico
     orcid: "https://orcid.org/0000-0002-6978-3619"
     affiliation: 'CISAS "G. Colombo", University of Padova'
-version: 2.1.0
+version: 2.1.1
 date-released: '2026-10-26'
 doi: 10.5281/zenodo.20715157
 license: MIT

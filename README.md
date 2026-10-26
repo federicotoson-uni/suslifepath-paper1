@@ -3,7 +3,7 @@
 Reproducibility package for *"Bridging Life Cycle Assessment and orbital sustainability
 assessment: a multi-domain composite indicator for the environmental assessment of space
 missions"* (sole author: F. Toson), under revision at the *Journal of Cleaner Production*.
-Version 2.1.0 goes with the revised manuscript; versions 1.0.x went with the submitted one.
+Version 2.1.1 goes with the revised manuscript; versions 1.0.x went with the submitted one.
 
 The SSCI couples three impact domains of a space mission into one composite indicator:
 
@@ -33,7 +33,7 @@ code/
   paper1_eta_sensitivity.py        orbit-loss multiplier sensitivity
   paper1_kappa_bc_sensitivity.py / paper1_atm_cf_sensitivity.py   atmospheric κ·τ sensitivities
   paper1_catalogue_scale.{py,m}    300-mission catalogue-scale sample
-  paper1_revision_sensitivities.py the checks added in the revision (A to M)
+  paper1_revision_sensitivities.py the checks added in the revision (A to N)
   build_supplementary.py           tables of the supplementary material, from the inputs above
   export_terrestrial_weighted.py   EF 3.1 weighted breakdown per impact category, to CSV
   paper1_figures.py                figures from outputs/
@@ -82,7 +82,7 @@ offline:
 cd code
 python paper1_norm_robustness.py         # normalisation sensitivity of the orbital decomposition
 python paper1_eta_sensitivity.py         # orbit-loss multiplier
-python paper1_revision_sensitivities.py  # checks A to M (reads the Paper 0 snapshot)
+python paper1_revision_sensitivities.py  # checks A to N (reads the Paper 0 snapshot)
 python build_supplementary.py            # writes ../supplementary.tex
 python paper1_figures.py                 # figures (needs matplotlib)
 ```
@@ -101,6 +101,12 @@ python ssci_orchestrator.py \
 ```
 regenerates `outputs/*/results.json` and `outputs/_summary.md`, with the terrestrial
 scores read live from OpenLCA (`source: ef31`).
+
+## Changes in 2.1.1
+
+- New check N in `paper1_revision_sensitivities.py`: the composite of the three cases
+  under every test of Table 4 of the paper, one metric for all, with a changed
+  convention applied to the reference mission too. `build_supplementary.py` prints it.
 
 ## Changes in 2.1.0 (revised manuscript, final checks)
 
@@ -162,7 +168,7 @@ operations, years, capped at 1000), `dgp` (collision burden index, reference
 mission = 1), `cc_op` and `cc_ext` (congestion over operations only and over
 the whole time in orbit) and `mc` (material criticality, independent of the
 rule). Figure scripts and the archetype-mix reweighting are in
-`code/figures/iac_a6/`. These outputs are unchanged in 2.0.0 and 2.1.0.
+`code/figures/iac_a6/`. These outputs are unchanged in 2.0.0 and 2.1.x.
 
 Run: `python code/iac_a6_disposal_sweep.py --n 600 [--decay-scale 0.8]`. It
 needs MATLAB and the Paper 0 toolchain (`suslifepath-paper0`) checked out

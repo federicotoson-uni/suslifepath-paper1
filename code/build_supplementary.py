@@ -288,6 +288,34 @@ Computed by \texttt{code/paper1\_revision\_sensitivities.py} from the pilot outp
                        ("alumina_chlorine_short", "capacity share, short alumina and chlorine residence"), ("full_attribution", "full attribution, baseline factors")):
             L.append(f"{lab} & \\multicolumn{{3}}{{r}}{{{md[k]:.1f}}} \\\\")
     L.append(r"\bottomrule\end{tabular}\end{center}")
+    nn = r.get("N_composites_by_test")
+    if nn:
+        def f4(x):
+            return f"{x:.1f}" if abs(x) >= 100 else (f"{x:.2f}" if abs(x) >= 10 else (f"{x:.3f}" if abs(x) >= 1 else f"{x:.4f}"))
+        def fm(v):
+            if isinstance(v, list):
+                lo, hi = f4(v[0]), f4(v[1])
+                return lo if lo == hi else f"{lo}--{hi}"
+            return f4(v)
+        rows = [("Pilot", "baseline"), ("Weights, 5th to 95th percentile", "weights_p05_p95"),
+                ("Terrestrial score times 0.1", "terrestrial_x0.1"), ("Terrestrial score times 10", "terrestrial_x10"),
+                ("Propellant production, low and high factors", "propellant_production_low_high"),
+                ("Black-carbon coefficient, $\\kappa\\tau_{BC}$ about 40 yr", "black_carbon_high"),
+                ("Alumina and chlorine at the low ends", "alumina_chlorine_short"),
+                ("Launch allocation, full attribution", "launch_full_attribution"),
+                ("Atmospheric domain left out (mean of the other two)", "atmospheric_left_out"),
+                ("Debris horizon, 100 yr", "debris_horizon_100"), ("Debris proxy, mass-weighted, 200 yr", "debris_proxy_mass_200"),
+                ("Congestion to re-entry, reference included", "congestion_to_reentry"),
+                ("Same-constellation pairs, Sentinel-6B excluded", "same_constellation_sentinel6B_excluded"),
+                ("Debris in congestion", "debris_in_congestion"),
+                ("Orbit-loss multiplier, four variants", "orbit_loss_multiplier_min_max"),
+                ("Disposal credited", "disposal_credited")]
+        L.append(r"\subsection*{Composite of the three cases under each test}" + "\n" +
+                 r"The values of Table 4 of the paper: $SSCI^{lin}$ at equal weights, normalised to the reference mission, a convention changed for the cases being changed for the reference too (\texttt{N\_composites\_by\_test} in the output file).")
+        L.append(r"\begin{center}\small\begin{tabular}{lrrr}\toprule Test & PocketQube & Sentinel-6 & ENVISAT \\\midrule")
+        for lab, key in rows:
+            L.append(f"{lab} & " + " & ".join(fm(nn[key][c]) for c in ("redpill_2p", "sentinel6", "envisat")) + r" \\")
+        L.append(r"\bottomrule\end{tabular}\end{center}")
     gp = r.get("G_propellant_production")
     if gp:
         L.append(r"""\subsection*{Propellant production, climate-only estimate}

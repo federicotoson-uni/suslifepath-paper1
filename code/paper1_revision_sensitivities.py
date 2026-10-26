@@ -40,6 +40,8 @@ and the Celestrak snapshot used by the orbital module, and computes:
      25-year residence implies a disposal (Sentinel-6 and the reference) at the floor.
   M. Launcher factor: stratospheric burden of the launch per tonne of spacecraft, Ariane 5G
      over Falcon 9, under the baseline factors, the two stratospheric tests and full attribution.
+  N. One metric for every test of Table 4: SSCI_lin of the three cases (equal weights,
+     reference normalisation), a changed convention applied to the reference mission too.
 
 Writes outputs/revision_sensitivities.json and prints a summary.
 """
@@ -340,6 +342,66 @@ def main():
     mm = {k: launch_per_t("envisat", kt) / launch_per_t("sentinel6", kt) for k, kt in kts.items()}
     mm["full_attribution"] = mm["baseline"] * FULL["envisat"] / FULL["sentinel6"]
     res["M_launcher_factor_per_tonne"] = mm
+    # ---------------- N. composite of the three cases under every test of Table 4 ----------------
+    # One metric for every test: SSCI_lin (equal weights, reference normalisation) of the
+    # three cases, so that the tests can be compared. A test that changes a convention
+    # changes it for the reference mission too.
+    T = {c: scores[c][0] for c in CASES}; A = {c: scores[c][1] for c in CASES}
+    def lin(t, a, o):
+        return (t + a + o) / 3
+    def orb(c, fd=1.0, fc=1.0, fm=1.0):
+        return (subs[c]["DGP"] * fd + subs[c]["CC"] * fc + subs[c]["MC"] * fm) / 3
+    def atm_raw_kt(d, kt):
+        raw = 0.0
+        for prop, kg in d["launch"]["propellant_share_kg"].items():
+            for sp, fac in atm.EMISSION_FACTORS_LAUNCH.get(prop, {}).items():
+                raw += kt.get(sp, 0.0) * fac * kg
+        dem = d["mass_budget"]["dry_mass_kg"] * d["reentry"]["expected_demise_fraction"]
+        per_fam = dem / max(1, len(atm.EMISSION_FACTORS_REENTRY))
+        for fam, ef in atm.EMISSION_FACTORS_REENTRY.items():
+            for sp, fac in ef.items():
+                raw += kt.get(sp, 0.0) * fac * per_fam
+        return raw
+    def comp_atm(kt):
+        ref_raw = atm_raw_kt(descr["_reference_smallsat"], kt)
+        return {c: lin(T[c], atm_raw_kt(descr[c], kt) / ref_raw, orb(c)) for c in CASES}
+    nn = {"baseline": {c: lin(T[c], A[c], orb(c)) for c in CASES}}
+    for c in CASES:   # the atmospheric recomputation reproduces the pilot at the baseline factors
+        assert abs(comp_atm(kt0)[c] / nn["baseline"][c] - 1) < 1e-6, c
+    dd = {c: json.load(open(OUT / c / "results.json"))["sensitivity_dirichlet_10k"] for c in CASES}
+    nn["weights_p05_p95"] = {c: [dd[c]["p05"], dd[c]["p95"]] for c in CASES}
+    nn["terrestrial_x0.1"] = {c: res["C_terrestrial_uncertainty"]["terrestrial_x0.1"][c]["lin"] for c in CASES}
+    nn["terrestrial_x10"] = {c: res["C_terrestrial_uncertainty"]["terrestrial_x10"][c]["lin"] for c in CASES}
+    nn["propellant_production_low_high"] = {c: sorted([res["G_propellant_production"][c]["ssci_lin_new"]["low"], res["G_propellant_production"][c]["ssci_lin_new"]["high"]]) for c in CASES}
+    nn["black_carbon_high"] = comp_atm(kts["black_carbon_high"])
+    nn["alumina_chlorine_short"] = comp_atm(kts["alumina_chlorine_short"])
+    nn["launch_full_attribution"] = {c: res["F_launch_allocation"][c]["ssci_lin_full_attribution"] for c in CASES}
+    nn["atmospheric_left_out"] = {c: res["D_without_atmospheric"][c]["TO_lin"] for c in CASES}
+    nn["debris_horizon_100"] = {c: lin(T[c], A[c], orb(c, fd=res["E_dgp_horizon_factor"][c]["horizon_H100"])) for c in CASES}
+    nn["debris_proxy_mass_200"] = {c: lin(T[c], A[c], orb(c, fd=res["E_dgp_horizon_factor"][c]["mass_fixed200_over_presence_area"])) for c in CASES}
+    f_ref_cc = (REF["top"] + REF["tres"]) / REF["top"]
+    nn["congestion_to_reentry"] = {c: lin(T[c], A[c], orb(c, fc=res["A_cc_boundary"][c]["ratio_ext_op"] / f_ref_cc)) for c in CASES}
+    nn["congestion_to_reentry_cc_factor"] = {c: res["A_cc_boundary"][c]["ratio_ext_op"] / f_ref_cc for c in CASES}
+    cat_f = np.array([(ARCH[m["arch"]][0] + ARCH[m["arch"]][1]) / ARCH[m["arch"]][0] / f_ref_cc for m in cat])
+    rsub = json.load(open(OUT / "redpill_2p" / "results.json"))["reference_subscores_orbital"]
+    sub_s = np.array([[m["dgp"] / rsub["DGP"], m["cc"] / rsub["CC"], m["mc"] / rsub["MC"]] for m in cat])
+    ext = sub_s.copy(); ext[:, 1] *= cat_f
+    nn["congestion_to_reentry_sample"] = dict(median_cc_factor=float(np.median(cat_f)),
+                                              cc_dominant_share=float(np.mean(np.argmax(ext, axis=1) == 1)),
+                                              cc_dominant_share_baseline=float(np.mean(np.argmax(sub_s, axis=1) == 1)))
+    nn["same_constellation_sentinel6B_excluded"] = {c: (lin(T[c], A[c], orb(c, fc=0.0)) if c == "sentinel6" else nn["baseline"][c]) for c in CASES}
+    nn["debris_in_congestion"] = {c: res["K_debris_in_congestion"][c]["ssci_lin"] for c in CASES}
+    nn["disposal_credited"] = {c: res["L_disposal_credited"][c]["ssci_lin"] for c in CASES}
+    def eta_v(h, floor, lo, hi):
+        return floor if h < lo else (1.0 if h >= hi else floor + (1.0 - floor) * (h - lo) / (hi - lo))
+    lo_hi = {}
+    for v in ((0.1, 600, 2000), (0.5, 600, 2000), (0.3, 500, 1500), (0.3, 700, 2500)):
+        fr = eta_v(700.0, *v) / eta(700.0)
+        for c, p in CASES.items():
+            val = lin(T[c], A[c], orb(c, fm=eta_v(p["h"], *v) / eta(p["h"]) / fr))
+            lo_hi.setdefault(c, []).append(val)
+    nn["orbit_loss_multiplier_min_max"] = {c: [min(v), max(v)] for c, v in lo_hi.items()}
+    res["N_composites_by_test"] = nn
     json.dump(res, open(OUT / "revision_sensitivities.json", "w"), indent=1)
     print(json.dumps(res, indent=1))
 

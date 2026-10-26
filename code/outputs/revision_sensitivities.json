@@ -530,5 +530,124 @@
   "black_carbon_high": 7.766754711351039,
   "alumina_chlorine_short": 11.769217037906504,
   "full_attribution": 4.585324412649401
+ },
+ "N_composites_by_test": {
+  "baseline": {
+   "redpill_2p": 1.0612168050424513,
+   "sentinel6": 2.754907525401777,
+   "envisat": 236.55896617499957
+  },
+  "weights_p05_p95": {
+   "redpill_2p": [
+    0.08304973701188317,
+    2.4607884583552373
+   ],
+   "sentinel6": [
+    1.9986366336499515,
+    3.6851710286381643
+   ],
+   "envisat": [
+    94.11485627824764,
+    344.0124525212198
+   ]
+  },
+  "terrestrial_x0.1": {
+   "redpill_2p": 1.060839456745928,
+   "sentinel6": 1.5113163601470163,
+   "envisat": 230.08493934104328
+  },
+  "terrestrial_x10": {
+   "redpill_2p": 1.0649902880076854,
+   "sentinel6": 15.190819177949384,
+   "envisat": 301.2992345145626
+  },
+  "propellant_production_low_high": {
+   "redpill_2p": [
+    1.061189996986587,
+    1.06121014107703
+   ],
+   "sentinel6": [
+    2.6346203987358803,
+    2.725010809361219
+   ],
+   "envisat": [
+    238.67195909944735,
+    239.07779749489507
+   ]
+  },
+  "black_carbon_high": {
+   "redpill_2p": 1.0612022516051554,
+   "sentinel6": 2.7489083985774414,
+   "envisat": 150.25484227588674
+  },
+  "alumina_chlorine_short": {
+   "redpill_2p": 1.061203334896873,
+   "sentinel6": 2.749354946308372,
+   "envisat": 170.35955740902523
+  },
+  "launch_full_attribution": {
+   "redpill_2p": 1.0609163676541442,
+   "sentinel6": 2.2797922273599487,
+   "envisat": 120.31212314365303
+  },
+  "atmospheric_left_out": {
+   "redpill_2p": 1.591356934852998,
+   "sentinel6": 2.9183513811923754,
+   "envisat": 164.85664548100524
+  },
+  "debris_horizon_100": {
+   "redpill_2p": 1.0612168050424513,
+   "sentinel6": 2.754907525401777,
+   "envisat": 188.77134712738052
+  },
+  "debris_proxy_mass_200": {
+   "redpill_2p": 1.0611825490468503,
+   "sentinel6": 2.7563540010206893,
+   "envisat": 166.7619533766035
+  },
+  "congestion_to_reentry": {
+   "redpill_2p": 1.160623607225973,
+   "sentinel6": 2.7550834848448322,
+   "envisat": 237.520491551119
+  },
+  "congestion_to_reentry_cc_factor": {
+   "redpill_2p": 1.09375,
+   "sentinel6": 1.2130681818181819,
+   "envisat": 4.59375
+  },
+  "congestion_to_reentry_sample": {
+   "median_cc_factor": 0.5833333333333334,
+   "cc_dominant_share": 0.86,
+   "cc_dominant_share_baseline": 0.86
+  },
+  "same_constellation_sentinel6B_excluded": {
+   "redpill_2p": 1.0612168050424513,
+   "sentinel6": 2.7540816890823705,
+   "envisat": 236.55896617499957
+  },
+  "debris_in_congestion": {
+   "redpill_2p": 0.20619274906360305,
+   "sentinel6": 2.7542356585656496,
+   "envisat": 236.53561032575098
+  },
+  "disposal_credited": {
+   "redpill_2p": 1.061231689769019,
+   "sentinel6": 2.488136391145494,
+   "envisat": 236.90721822242654
+  },
+  "orbit_loss_multiplier_min_max": {
+   "redpill_2p": [
+    1.0611909185614634,
+    1.061231689769019
+   ],
+   "sentinel6": [
+    2.6126295871317597,
+    3.218857324108356
+   ],
+   "envisat": [
+    236.45765648847535,
+    236.88932384844807
+   ]
+  }
  }
 }
