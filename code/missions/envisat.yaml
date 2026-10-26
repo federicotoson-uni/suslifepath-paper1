@@ -45,8 +45,8 @@ launch:                                # Ariane 5 G+ from Kourou, 2002
     APCP: 216000                       # 2x solid boosters 474t * 0.456
     hydrogen: 11400                    # main EPC stage LH2 25t * 0.456
     LOX: 59300                         # main EPC stage LOX 130t * 0.456
-    MMH: 2700                          # EPS upper stage hypergolic
-    N2O4: 1800                         # EPS upper stage hypergolic
+    MMH: 1459                          # EPS upper stage: 3.2 t MMH * 0.456
+    N2O4: 3010                         # EPS upper stage: 6.6 t N2O4 * 0.456
 
 reentry:
   reentry_class: large_uncontrolled

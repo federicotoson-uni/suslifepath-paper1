@@ -21,6 +21,7 @@ class Orbit:
     eccentricity: float
     operational_lifetime_yr: float
     residual_lifetime_yr: float
+    catalogued: bool = False   # True if the object is in the snapshot: excluded from its own shell
 
 
 @dataclass
@@ -48,7 +49,7 @@ class Cost:
 class Material:
     id: str
     mass_kg: float
-    criticality_factor: float           # Graedel 2015 scale, 0..1
+    criticality_factor: float           # author-assigned, 0..1, after the dimensions of Graedel et al. 2015
 
 
 @dataclass

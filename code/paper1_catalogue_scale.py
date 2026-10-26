@@ -79,8 +79,8 @@ ARCHETYPES = [
 ]
 # per-kg-payload propellant intensities (kg propellant / kg payload), from the
 # case-study launcher shares: kerosene-LOX (Falcon 9) and APCP-stack (Ariane 5)
-KEROSENE_STACK = {"kerosene": 8.8, "LOX": 35.0}
-SRM_STACK = {"APCP": 26.3, "hydrogen": 1.39, "LOX": 7.2, "MMH": 0.33, "N2O4": 0.22}
+KEROSENE_STACK = {"kerosene": 8.8, "LOX": 21.9}   # LOX:RP-1 2.49 (F9 488 t load)
+SRM_STACK = {"APCP": 26.3, "hydrogen": 1.39, "LOX": 7.2, "MMH": 0.178, "N2O4": 0.367}
 
 
 def load_real_altitudes():
@@ -164,9 +164,14 @@ def main():
             cmd = [MATLAB_BIN, "-batch",
                    f"cd('{HERE}'); paper1_catalogue_scale('{ij}','{oc}')"]
             print("running MATLAB DGP batch (one launch)...")
-            r = subprocess.run(cmd, capture_output=True, text=True, timeout=900)
+            # log to a file, not a pipe: the MathWorks service host inherits the
+            # pipe and keeps it open after MATLAB exits (hang seen 26/10/2026)
+            log = Path(td) / "matlab.log"
+            with open(log, "w") as lf:
+                r = subprocess.run(cmd, stdin=subprocess.DEVNULL, stdout=lf,
+                                   stderr=subprocess.STDOUT, timeout=900)
             if r.returncode != 0 or not oc.exists():
-                print("MATLAB batch failed:\n", r.stdout[-500:], r.stderr[-500:])
+                print("MATLAB batch failed:\n", log.read_text()[-1000:])
                 sys.exit(1)
             for row in csv.DictReader(open(oc)):
                 dgp[int(row["index"]) - 1] = float(row["DGP"])

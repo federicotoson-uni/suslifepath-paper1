@@ -15,7 +15,7 @@ import olca_ipc as ipc
 import olca_schema as o
 
 AIT_KWH_PER_KG = 10.0
-AIT_MIN_KWH = 50.0   # floor: a test campaign does not scale below this (PocketCube)
+AIT_MIN_KWH = 50.0   # floor: a test campaign does not scale below this (PocketQube)
 
 # material class (yaml) -> provider process name (seed v3 / IPC-built)
 PROVIDER_FOR_CLASS = {

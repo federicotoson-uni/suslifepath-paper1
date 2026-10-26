@@ -46,7 +46,7 @@ launch:
   vehicle: Falcon9_dedicated
   propellant_share_kg:
     kerosene: 4375                # 500/16000 * 140000 kg RP-1
-    LOX: 17500                    # 4:1 LOX:RP-1 mass ratio
+    LOX: 10887                    # F9 load 488 t = 140 t RP-1 + 348 t LOX (2.49:1)
 
 reentry:
   reentry_class: medium_uncontrolled

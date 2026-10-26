@@ -76,26 +76,31 @@ def call_matlab(script_path: Path | str,
         )
         cmd = [matlab_bin, "-nodesktop", "-nosplash", "-batch", expr]
 
-        result = subprocess.run(
-            cmd,
-            cwd=str(script_path.parent),
-            check=False,
-            capture_output=True,
-            text=True,
-            timeout=timeout_s,
-        )
+        # Output to a file, not a pipe: the MathWorks service host inherits the
+        # pipe and keeps it open after MATLAB exits (hang seen 26/10/2026).
+        log = td / "matlab.log"
+        with open(log, "w") as lf:
+            result = subprocess.run(
+                cmd,
+                cwd=str(script_path.parent),
+                check=False,
+                stdin=subprocess.DEVNULL,
+                stdout=lf,
+                stderr=subprocess.STDOUT,
+                timeout=timeout_s,
+            )
+        log_text = log.read_text()
 
         if result.returncode != 0:
             raise RuntimeError(
                 f"MATLAB call to {script_path.name} failed (rc={result.returncode}).\n"
-                f"stdout:\n{result.stdout}\n"
-                f"stderr:\n{result.stderr}"
+                f"output:\n{log_text}"
             )
         if not output_csv.exists():
             raise RuntimeError(
                 f"MATLAB script {script_path.name} returned 0 but did not "
                 f"create the expected output CSV at {output_csv}.\n"
-                f"stdout:\n{result.stdout}"
+                f"output:\n{log_text}"
             )
 
         # Parse CSV: expects header `metric,value`
@@ -124,10 +129,13 @@ def check_matlab_available(matlab_bin: str = MATLAB_BIN_DEFAULT) -> bool:
     a clear message if MATLAB is missing.
     """
     try:
-        result = subprocess.run(
-            [matlab_bin, "-batch", "disp('OK')"],
-            capture_output=True, text=True, timeout=60,
-        )
-        return result.returncode == 0 and "OK" in result.stdout
+        with tempfile.TemporaryDirectory() as td:
+            log = Path(td) / "check.log"
+            with open(log, "w") as lf:
+                result = subprocess.run(
+                    [matlab_bin, "-batch", "disp('OK')"],
+                    stdin=subprocess.DEVNULL, stdout=lf, stderr=subprocess.STDOUT, timeout=60,
+                )
+            return result.returncode == 0 and "OK" in log.read_text()
     except (FileNotFoundError, subprocess.TimeoutExpired):
         return False

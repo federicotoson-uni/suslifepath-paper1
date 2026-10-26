@@ -62,6 +62,12 @@ def compute_orbital_score(mission: Mission) -> OrbitalResult:
     CC  = _compute_CC(mission)
     MC  = _compute_MC(mission)
 
+    # A catalogued object would count itself in its own shell density; both
+    # DGP and CC are linear in that count, so the self-count is removed here.
+    if mission.orbit.catalogued:
+        f = self_exclusion_factor(mission.orbit.altitude_km)
+        DGP, CC = DGP * f, CC * f
+
     raw = DGP + CC + MC
     if raw <= 0:
         breakdown = {"DGP": 0.0, "CC": 0.0, "MC": 0.0}
@@ -114,8 +120,8 @@ def _compute_CC(mission: Mission) -> float:
 
     Implemented via paper0_ecob_proxy_single-style MATLAB bridge:
     operational density rho_op extracted from the Celestrak May 2026
-    snapshot (same Paper 0 data); keep-out volume V_occ = (50 km)^3
-    per ECSS-U-AS-10C; snapshot assumption => CC = V_occ * rho_op * T_op
+    snapshot (same Paper 0 data); keep-out volume V_occ = (50 km)^3, a
+    convention of this work (Section 3.2); snapshot assumption => CC = V_occ * rho_op * T_op
     with units of satellite-year exposure.
     """
     from pathlib import Path
@@ -146,6 +152,30 @@ def _compute_MC(mission: Mission) -> float:
     """
     eta = _orbit_loss_multiplier(mission.orbit.altitude_km)
     return sum(m.mass_kg * m.criticality_factor * eta for m in mission.materials)
+
+
+def self_exclusion_factor(altitude_km: float, dh: float = 25.0) -> float:
+    """(n - 1) / n, with n the active objects whose perigee lies within dh of
+    altitude_km in the Celestrak snapshot that the MATLAB modules read."""
+    import csv
+    import math
+    from pathlib import Path
+    # Paper 0 checked out next to this repository, as the public clone or the working copy
+    root = Path(__file__).resolve().parent.parent.parent
+    cat = next((p for p in (root / d / "data" / "celestrak_active.csv"
+                            for d in ("suslifepath-paper0", "Paper0_SimplifiedAlgorithm")) if p.exists()),
+               root / "suslifepath-paper0" / "data" / "celestrak_active.csv")
+    mu, re = 398600.4418, 6378.137
+    n = 0
+    for row in csv.DictReader(open(cat)):
+        try:
+            mm = float(row["MEAN_MOTION"]) * 2 * math.pi / 86400.0
+            hp = (mu / mm ** 2) ** (1 / 3.0) * (1 - float(row["ECCENTRICITY"])) - re
+        except (ValueError, KeyError, ZeroDivisionError):
+            continue
+        if abs(hp - altitude_km) <= dh:
+            n += 1
+    return (n - 1) / n if n > 1 else 0.0
 
 
 def _orbit_loss_multiplier(altitude_km: float) -> float:

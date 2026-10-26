@@ -25,6 +25,21 @@ and the Celestrak snapshot used by the orbital module, and computes:
   G. Propellant production, climate only: cradle-to-gate factors per propellant,
      low / mid / high, converted to EF 3.1 points and normalised to the reference.
   H. A trade-off across domains: Sentinel-6 with and without disposal.
+  I. Normalisation of the three domains: the terrestrial-only difference
+     (T - SSCI) / SSCI, zero for the reference mission by construction, with every
+     domain normalised to the median or to the geometric mean of the sample instead
+     of the reference mission, for the three cases and the N=300 sample.
+  J. Comparisons between domains under the normalisations of I: largest domain and
+     ratio of the linear to the geometric composite for the three cases, PocketQube
+     over Sentinel-6, median atmospheric share and rank correlation of the composite
+     without the atmospheric domain over the sample, Sentinel-6 disposal trade-off.
+  K. Debris in the congestion term: the four fragmentation clouds of the snapshot
+     (Fengyun-1C, Cosmos 2251, Iridium 33, Cosmos 1408) added to the active objects
+     of each shell, for the cases and the reference.
+  L. Disposal credited in the orbit-loss multiplier: the missions above 600 km whose
+     25-year residence implies a disposal (Sentinel-6 and the reference) at the floor.
+  M. Launcher factor: stratospheric burden of the launch per tonne of spacecraft, Ariane 5G
+     over Falcon 9, under the baseline factors, the two stratospheric tests and full attribution.
 
 Writes outputs/revision_sensitivities.json and prints a summary.
 """
@@ -234,6 +249,97 @@ def main():
         ssci_lin_with=(t + a + iO_with) / 3, ssci_lin_without=(t + a + iO_without) / 3,
         onboard_propellant_kg=prop_kg,
         terrestrial_relative_increase_if_all_propellant_charged={k: v / singles["sentinel6"] for k, v in add_pt.items()})
+    # ---------------- I. normalisation of the three domains ----------------
+    nT_all = np.array([m["iT"] for m in cat]); nA_all = np.array([m["iA"] for m in cat]); nO_all = np.array([m["iO"] for m in cat])
+    def t_diff(t, at, o):
+        s = (t + at + o) / 3
+        return (t - s) / s
+    ii = {}
+    for lab, f in (("reference_mission", lambda x: 1.0), ("sample_median", np.median),
+                   ("sample_geometric_mean", lambda x: float(np.exp(np.mean(np.log(x)))))):
+        den = (float(f(nT_all)), float(f(nA_all)), float(f(nO_all)))
+        d = t_diff(nT_all / den[0], nA_all / den[1], nO_all / den[2])
+        ii[lab] = dict(denominators_T_A_O=den, share_terrestrial_below=float(np.mean(d < 0)),
+                       median_difference=float(np.median(d)),
+                       cases={c: float(t_diff(*(s / q for s, q in zip(scores[c], den)))) for c in CASES})
+    res["I_domain_normalisation"] = ii
+    # ---------------- J. comparisons between domains under the normalisations of I ----------------
+    jj = {}
+    h6 = res["H_tradeoff_sentinel6_disposal"]
+    for lab, v in ii.items():
+        dT, dA, dO = v["denominators_T_A_O"]
+        cs = {}
+        for c in CASES:
+            t, at, o = scores[c][0] / dT, scores[c][1] / dA, scores[c][2] / dO
+            lin, geo = (t + at + o) / 3, (t * at * o) ** (1 / 3)
+            cs[c] = dict(T=t, A=at, O=o, largest=max((("T", t), ("A", at), ("O", o)), key=lambda x: x[1])[0],
+                         lin=lin, geo=geo, lin_over_geo=lin / geo)
+        full = (nT_all / dT + nA_all / dA + nO_all / dO) / 3
+        t_o = (nT_all / dT + nO_all / dO) / 2
+        benefit = (h6["orbital_without"] - h6["orbital_with"]) / dO
+        cost = [scores["sentinel6"][0] * x / dT for x in h6["terrestrial_relative_increase_if_all_propellant_charged"].values()]
+        jj[lab] = dict(cases=cs, pocketqube_over_sentinel6_lin=cs["redpill_2p"]["lin"] / cs["sentinel6"]["lin"],
+                       sample_median_atmospheric_share=float(np.median((nA_all / dA) / (3 * full))),
+                       sample_spearman_full_vs_TO=spearman(full, t_o),
+                       sentinel6_disposal_benefit_over_cost=[benefit / max(cost), benefit / min(cost)])
+    res["J_cross_domain_normalisation"] = jj
+    # ---------------- K. debris in the congestion term ----------------
+    # rho_op counts active objects only; here the catalogued fragmentation clouds join
+    # them, shell by shell (perigee within 25 km, as in the orbital module). A catalogued
+    # case is excluded from its own shell, as in the pilot.
+    def perigees(f):
+        out = []
+        for row in csv.DictReader(open(f)):
+            try:
+                n = float(row["MEAN_MOTION"]) * 2 * math.pi / 86400.0
+                out.append((mu / n ** 2) ** (1 / 3) * (1 - float(row["ECCENTRICITY"])) - RE)
+            except (ValueError, KeyError, ZeroDivisionError):
+                pass
+        return np.array(out)
+    act, deb = perigees(CATALOGUE), perigees(CATALOGUE.parent / "celestrak_debris.csv")
+    def growth(h0, own):
+        na = int(np.sum(np.abs(act - h0) <= 25.0)) - own
+        return (na + int(np.sum(np.abs(deb - h0) <= 25.0))) / na
+    g_ref = growth(700.0, 0)
+    k = {"reference_shell_growth": g_ref}
+    subs = {c: json.load(open(OUT / c / "results.json"))["raw_scores"]["orbital"]["normalised_subscores"] for c in CASES}
+    for c, p in CASES.items():
+        own = 1 if descr[c]["orbit"].get("catalogued") else 0
+        f = growth(p["h"], own) / g_ref
+        t, a, o = scores[c]
+        o_new = (subs[c]["DGP"] + subs[c]["CC"] * f + subs[c]["MC"]) / 3
+        k[c] = dict(shell_growth=growth(p["h"], own), cc_factor=f, orbital=o_new, ssci_lin=(t + a + o_new) / 3)
+    res["K_debris_in_congestion"] = k
+    # ---------------- L. disposal credited in the orbit-loss multiplier ----------------
+    # eta follows the deployment altitude; crediting a disposal puts a mission above
+    # 600 km with a 25-year residence at the 0.3 floor. The reference is one of them,
+    # so every normalised MC also rises by eta(700) / 0.3.
+    from domain_orbital import _orbit_loss_multiplier as eta
+    f_ref = eta(700.0) / 0.3
+    ll = {"reference_factor_on_normalised_MC": f_ref}
+    for c, p in CASES.items():
+        f = f_ref * (0.3 / eta(p["h"]) if c == "sentinel6" else 1.0)
+        t, a, o = scores[c]
+        o_new = (subs[c]["DGP"] + subs[c]["CC"] + subs[c]["MC"] * f) / 3
+        ll[c] = dict(mc_factor=f, orbital=o_new, ssci_lin=(t + a + o_new) / 3)
+    res["L_disposal_credited"] = ll
+    # ---------------- M. launcher factor per tonne of spacecraft ----------------
+    # Stratospheric burden of the launch per tonne of spacecraft, Ariane 5G (ENVISAT) over
+    # Falcon 9 (Sentinel-6), under the capacity share with the baseline factors and the two
+    # stratospheric tests of Table 4, and under full attribution.
+    def launch_per_t(c, kt):
+        raw = 0.0
+        for prop, kg in descr[c]["launch"]["propellant_share_kg"].items():
+            for sp, fac in atm.EMISSION_FACTORS_LAUNCH.get(prop, {}).items():
+                raw += kt.get(sp, 0.0) * fac * kg
+        return raw / (descr[c]["mass_budget"]["dry_mass_kg"] / 1000.0)
+    kt0 = dict(atm.STRATOSPHERIC_KT)
+    kts = {"baseline": kt0,
+           "black_carbon_high": {**kt0, "BC": 8.96 * atm.STRATOSPHERIC_TAU["BC"]},
+           "alumina_chlorine_short": {**kt0, "Al2O3": 2.5, "HCl": 2.4}}
+    mm = {k: launch_per_t("envisat", kt) / launch_per_t("sentinel6", kt) for k, kt in kts.items()}
+    mm["full_attribution"] = mm["baseline"] * FULL["envisat"] / FULL["sentinel6"]
+    res["M_launcher_factor_per_tonne"] = mm
     json.dump(res, open(OUT / "revision_sensitivities.json", "w"), indent=1)
     print(json.dumps(res, indent=1))
 

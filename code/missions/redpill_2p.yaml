@@ -59,7 +59,7 @@ launch:
   vehicle: Falcon9_rideshare
   propellant_share_kg:            # 0.435 kg / 16000 kg LEO * 140000 kg RP-1 (scaled from BOM dry mass)
     kerosene: 3.8
-    LOX: 15.2
+    LOX: 9.46                      # F9 load 488 t = 140 t RP-1 + 348 t LOX (2.49:1)
 
 reentry:
   reentry_class: small_uncontrolled

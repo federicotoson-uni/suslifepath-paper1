@@ -24,14 +24,14 @@
 % --- input ---
 \node[io] (yaml) {mission descriptor\\ (YAML schema)};
 
-% --- orchestrator ---
-\node[orch, right=1.2cm of yaml] (orch) {Python\\ orchestrator};
+% --- driver script ---
+\node[orch, right=1.2cm of yaml] (orch) {Python\\ driver script};
 
 % --- three domain modules ---
 \node[mod, fill=okorange!18,
       above right=0.7cm and 1.3cm of orch] (T) {%
-  \textbf{Terrestrial}\\ OpenLCA + EF 3.1\\ {\footnotesize\itshape\color{black!55} via olca-ipc}\\
-  {\footnotesize\itshape\color{black!55} SusLifePath library, 54 proc.}};
+  \textbf{Terrestrial}\\ openLCA + EF 3.1\\ {\footnotesize\itshape\color{black!55} via olca-ipc}\\
+  {\footnotesize\itshape\color{black!55} SusLifePath library, 57 proc.}};
 \node[mod, fill=oksky!22, right=1.3cm of orch] (A) {%
   \textbf{Atmospheric}\\ Python module\\ {\footnotesize\itshape\color{black!55} $\kappa_e\tau_e$ per species}\\
   {\footnotesize\itshape\color{black!55} Ross, Maloney, Ferreira, WMO}};
@@ -41,7 +41,7 @@
   MC (Python)};
 
 % --- aggregation ---
-\node[orch, right=1.3cm of A] (agg) {SSCI aggregation\\ linear + risk-based};
+\node[orch, right=1.3cm of A] (agg) {SSCI aggregation\\ arithmetic + geometric};
 
 % --- outputs ---
 \node[io, right=1.2cm of agg] (out) {scores, decomposition,\\ Dirichlet sensitivity};

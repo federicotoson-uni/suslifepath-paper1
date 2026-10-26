@@ -1,100 +1,100 @@
 {
-  "mission_id": "envisat",
-  "reference_id": "smallsat_700km_sso",
-  "raw_scores": {
-    "terrestrial": {
-      "raw_score": 39.249749214352526,
-      "by_impact_category": {
-        "Ecotoxicity freshwater (organics)": 2344.4390878039308,
-        "Ecotoxicity freshwater (inorganics)": 455.7345502710002,
-        "Ionising radiation (human health)": 248627.68700000012,
-        "Ozone depletion": 0.0,
-        "Eutrophication marine": 298.77711670460025,
-        "Eutrophication terrestrial": 3314.2076153985026,
-        "Acidification": 1713.2890515510014,
-        "Photochemical ozone formation (human health)": 1096.7645801147507,
-        "Particulate matter": 0.03595375419958252,
-        "Eutrophication freshwater": 0.0,
-        "Land use": 44777.81754741002,
-        "Water use": 734651.0741000003,
-        "Resource use minerals and metals": 2.679569148591064,
-        "Resource use fossils": 0.0,
-        "Human toxicity cancer (organics)": 0.0,
-        "Human toxicity non-cancer (inorganics)": 4.4963187068100027e-08,
-        "Human toxicity non-cancer (organics)": 3.9792053808057464e-05,
-        "Climate change (fossil)": 641946.4959533504,
-        "Human toxicity non-cancer": 3.983701699512557e-05,
-        "Climate change (biogenic)": 0.0,
-        "Climate change": 641946.4959533504,
-        "Human toxicity cancer": 0.0,
-        "Climate change (land use)": 0.0,
-        "Ecotoxicity freshwater": 2800.1736380749308,
-        "Human toxicity cancer (inorganics)": 0.0
-      },
-      "by_lifecycle_tier": {
-        "manufacturing+AIT": 39.249749214352526
-      },
-      "source": "ef31"
-    },
-    "atmospheric": {
-      "raw_score": 754420.533075,
-      "by_species": {
-        "NOx": 1982.457375,
-        "Al2O3": 491294.4528,
-        "BC": 80.62290000000002,
-        "H2O": 43335.0,
-        "HCl": 217728.0
-      },
-      "by_phase": {
-        "launch": 748920.6,
-        "reentry": 5499.933075
-      }
-    },
-    "orbital": {
-      "raw_score": 2000.076207341,
-      "DGP": 903.186,
-      "CC": 0.005957341,
-      "MC": 1096.88425,
-      "breakdown_pct": {
-        "DGP": 97.70514781246838,
-        "CC": 0.260492753736477,
-        "MC": 2.0343594337951463
-      },
-      "normalised_subscores": {
-        "DGP": 903.186,
-        "CC": 2.4079939854121992,
-        "MC": 18.805610561056106
-      }
-    }
+ "mission_id": "envisat",
+ "reference_id": "smallsat_700km_sso",
+ "raw_scores": {
+  "terrestrial": {
+   "raw_score": 39.249749214352526,
+   "by_impact_category": {
+    "Ecotoxicity freshwater (organics)": 2344.4390878039308,
+    "Ecotoxicity freshwater (inorganics)": 455.7345502710002,
+    "Ionising radiation (human health)": 248627.68700000012,
+    "Ozone depletion": 0.0,
+    "Eutrophication marine": 298.77711670460025,
+    "Eutrophication terrestrial": 3314.2076153985026,
+    "Acidification": 1713.2890515510014,
+    "Photochemical ozone formation (human health)": 1096.7645801147507,
+    "Particulate matter": 0.03595375419958252,
+    "Eutrophication freshwater": 0.0,
+    "Land use": 44777.81754741002,
+    "Water use": 734651.0741000003,
+    "Resource use minerals and metals": 2.679569148591064,
+    "Resource use fossils": 0.0,
+    "Human toxicity cancer (organics)": 0.0,
+    "Human toxicity non-cancer (inorganics)": 4.4963187068100027e-08,
+    "Human toxicity non-cancer (organics)": 3.9792053808057464e-05,
+    "Climate change (fossil)": 641946.4959533504,
+    "Human toxicity non-cancer": 3.983701699512557e-05,
+    "Climate change (biogenic)": 0.0,
+    "Climate change": 641946.4959533504,
+    "Human toxicity cancer": 0.0,
+    "Climate change (land use)": 0.0,
+    "Ecotoxicity freshwater": 2800.1736380749308,
+    "Human toxicity cancer (inorganics)": 0.0
+   },
+   "by_lifecycle_tier": {
+    "manufacturing+AIT": 39.249749214352526
+   },
+   "source": "ef31"
   },
-  "reference_raw_scores": {
-    "terrestrial": 1.8187945565109827,
-    "atmospheric": 1985.9875,
-    "orbital": 59.329973985
+  "atmospheric": {
+   "raw_score": 754602.9750750001,
+   "by_species": {
+    "NOx": 2373.387375,
+    "Al2O3": 491294.4528,
+    "BC": 58.28490000000001,
+    "H2O": 43148.85,
+    "HCl": 217728.0
+   },
+   "by_phase": {
+    "launch": 749103.042,
+    "reentry": 5499.933075
+   }
   },
-  "reference_subscores_orbital": {
-    "DGP": 1.0,
-    "CC": 0.002473985,
-    "MC": 58.3275
-  },
-  "ssci": {
-    "scores_norm": {
-      "terrestrial": 21.580089446521015,
-      "atmospheric": 379.8717429364485,
-      "orbital": 308.1332015154895
-    },
-    "SSCI_linear_equal": 236.52834463281968,
-    "SSCI_linear_expert": 265.190340066631,
-    "SSCI_risk": 136.1892752467062
-  },
-  "sensitivity_dirichlet_10k": {
-    "mean": 235.35245527833644,
-    "median": 246.9109733290831,
-    "p05": 94.10959637233914,
-    "p25": 179.93057552853318,
-    "p75": 298.06594919569625,
-    "p95": 343.95515131390795,
-    "min": 25.211833530297383,
-    "max": 378.95026645451793
+  "orbital": {
+   "raw_score": 2000.076207341,
+   "DGP": 903.186,
+   "CC": 0.005957341,
+   "MC": 1096.88425,
+   "breakdown_pct": {
+    "DGP": 97.70514781246838,
+    "CC": 0.260492753736477,
+    "MC": 2.0343594337951463
+   },
+   "normalised_subscores": {
+    "DGP": 903.186,
+    "CC": 2.4079939854121992,
+    "MC": 18.805610561056106
+   }
   }
+ },
+ "reference_raw_scores": {
+  "terrestrial": 1.8187945565109827,
+  "atmospheric": 1985.9875,
+  "orbital": 59.329973985
+ },
+ "reference_subscores_orbital": {
+  "DGP": 1.0,
+  "CC": 0.002473985,
+  "MC": 58.3275
+ },
+ "ssci": {
+  "scores_norm": {
+   "terrestrial": 21.580089446521015,
+   "atmospheric": 379.9636075629882,
+   "orbital": 308.1332015154895
+  },
+  "SSCI_linear_equal": 236.55896617499957,
+  "SSCI_linear_expert": 265.2270859172468,
+  "SSCI_risk": 136.200252608377
+ },
+ "sensitivity_dirichlet_10k": {
+  "mean": 235.38307224493698,
+  "median": 246.94831780743903,
+  "p05": 94.11485627824764,
+  "p25": 179.94700677809982,
+  "p75": 298.07785940861606,
+  "p95": 344.0124525212198,
+  "min": 25.212519034585537,
+  "max": 379.041212425642
+ }
 }

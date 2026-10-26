@@ -13,6 +13,7 @@ orbit:
   eccentricity: 0.001
   operational_lifetime_yr: 5.5
   residual_lifetime_yr: 25             # IADC-25yr compliant disposal
+  catalogued: true                     # Sentinel-6A is in the snapshot: excluded from its own shell
 
 mass_budget:
   dry_mass_kg: 1192                    # NASA JPL fact sheet
@@ -43,7 +44,7 @@ launch:                                 # Falcon 9 from Vandenberg, 2020
   vehicle: Falcon9_dedicated
   propellant_share_kg:                  # share 1.2t/16t LEO = 0.075
     kerosene: 10500                     # F9 first stage RP-1 share
-    LOX:      42000                     # F9 first stage LOX share (4:1)
+    LOX:      26128                     # LOX share: F9 load 488 t = 140 t RP-1 + 348 t LOX (2.49:1)
 
 reentry:
   reentry_class: medium_uncontrolled

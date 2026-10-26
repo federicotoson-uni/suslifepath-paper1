@@ -3,7 +3,7 @@
 Reproducibility package for *"Bridging Life Cycle Assessment and orbital sustainability
 assessment: a multi-domain composite indicator for the environmental assessment of space
 missions"* (sole author: F. Toson), under revision at the *Journal of Cleaner Production*.
-Version 2.0.0 goes with the revised manuscript; versions 1.0.x went with the submitted one.
+Version 2.1.0 goes with the revised manuscript; versions 1.0.x went with the submitted one.
 
 The SSCI couples three impact domains of a space mission into one composite indicator:
 
@@ -33,7 +33,7 @@ code/
   paper1_eta_sensitivity.py        orbit-loss multiplier sensitivity
   paper1_kappa_bc_sensitivity.py / paper1_atm_cf_sensitivity.py   atmospheric κ·τ sensitivities
   paper1_catalogue_scale.{py,m}    300-mission catalogue-scale sample
-  paper1_revision_sensitivities.py the eight checks added in the revision (A to H)
+  paper1_revision_sensitivities.py the checks added in the revision (A to M)
   build_supplementary.py           tables of the supplementary material, from the inputs above
   export_terrestrial_weighted.py   EF 3.1 weighted breakdown per impact category, to CSV
   paper1_figures.py                figures from outputs/
@@ -57,7 +57,7 @@ no licensed data. To use it:
 3. start the IPC server on port 8080 (Tools, Developer tools, IPC Server, JSON-RPC).
 
 `domain_terrestrial.py` then computes the EF 3.1 weighted single score of each product
-system: 0.00229 Pt for the PocketCube, 7.54 for Sentinel-6, 39.2 for ENVISAT and 1.82 for
+system: 0.00229 Pt for the PocketQube, 7.54 for Sentinel-6, 39.2 for ENVISAT and 1.82 for
 the reference mission.
 
 ## Requirements
@@ -82,7 +82,7 @@ offline:
 cd code
 python paper1_norm_robustness.py         # normalisation sensitivity of the orbital decomposition
 python paper1_eta_sensitivity.py         # orbit-loss multiplier
-python paper1_revision_sensitivities.py  # checks A to H (reads the Paper 0 snapshot)
+python paper1_revision_sensitivities.py  # checks A to M (reads the Paper 0 snapshot)
 python build_supplementary.py            # writes ../supplementary.tex
 python paper1_figures.py                 # figures (needs matplotlib)
 ```
@@ -101,6 +101,25 @@ python ssci_orchestrator.py \
 ```
 regenerates `outputs/*/results.json` and `outputs/_summary.md`, with the terrestrial
 scores read live from OpenLCA (`source: ef31`).
+
+## Changes in 2.1.0 (revised manuscript, final checks)
+
+- Sentinel-6, the only case in the catalogue snapshot, is excluded from the density of its
+  own shell (`catalogued: true` in its descriptor, `self_exclusion_factor` in
+  `domain_orbital.py`): at 1336 km the snapshot holds Sentinel-6 and Sentinel-6B alone, so
+  its DGP and CC were counted twice. Its composite moves from 2.76 to 2.75.
+- Liquid-oxygen loads of the Falcon 9 launches corrected to 2.49 kg per kg of RP-1 on a
+  488 t load, and the hypergolic loads of ENVISAT's upper stage swapped back. Liquid
+  oxygen has no stratospheric factor, so only the propellant-production check changes.
+- New checks in `paper1_revision_sensitivities.py`: K, the catalogued fragmentation clouds
+  added to the congestion term; L, a disposal credited in the orbit-loss multiplier; M,
+  the stratospheric burden of the launch per tonne of spacecraft, Ariane 5G over Falcon 9.
+- MATLAB is called with its output written to a file, not a pipe (`matlab_bridge.py`,
+  `paper1_catalogue_scale.py`): recent MathWorks service hosts keep the pipe open after
+  MATLAB exits, and the call never returned.
+- The Paper 0 snapshot is looked up in `domain_orbital.py` in the same order as in the
+  other scripts.
+- Outputs, summary tables, figures and the supplementary material regenerated.
 
 ## Changes in 2.0.0 (revised manuscript)
 
@@ -143,7 +162,7 @@ operations, years, capped at 1000), `dgp` (collision burden index, reference
 mission = 1), `cc_op` and `cc_ext` (congestion over operations only and over
 the whole time in orbit) and `mc` (material criticality, independent of the
 rule). Figure scripts and the archetype-mix reweighting are in
-`code/figures/iac_a6/`. These outputs are unchanged in 2.0.0.
+`code/figures/iac_a6/`. These outputs are unchanged in 2.0.0 and 2.1.0.
 
 Run: `python code/iac_a6_disposal_sweep.py --n 600 [--decay-scale 0.8]`. It
 needs MATLAB and the Paper 0 toolchain (`suslifepath-paper0`) checked out

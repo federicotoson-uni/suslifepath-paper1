@@ -19,7 +19,7 @@ normalise() to obtain the dimensionless I_tilde_A.
 Author: Federico Toson
 References:
   - Ross & Toohey 2019, Eos 100
-  - Maloney et al. 2022, PNAS
+  - Maloney et al. 2022, JGR Atmospheres 127, e2021JD036373
   - Ryan et al. 2022, Earth's Future
   - WMO 2022, Scientific Assessment of Ozone Depletion
 """

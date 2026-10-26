@@ -233,7 +233,7 @@ def compute_ssci(scores: DomainScores, reference: DomainScores,
 #  real domain-module outputs (ECOB / OpenLCA / atmospheric module).
 # ======================================================================= #
 if __name__ == "__main__":
-    # Indicative normalised pilot (2P PocketCube): I_T=0.92, I_A=1.37, I_O=1.18.
+    # Indicative normalised pilot (2P PocketQube): I_T=0.92, I_A=1.37, I_O=1.18.
     # We back out raw scores == normalised by using reference = 1 per domain,
     # purely to exercise the interface.
     pilot = DomainScores(terrestrial=0.92, atmospheric=1.37, orbital=1.18)
